@@ -1,35 +1,36 @@
-const config = require('../config')
-const redis = require('redis');
+const config = require("../config");
+const redis = require("redis");
 
 const RedisClient = redis.createClient({
-  url: `redis://${config.redis.host}:${config.redis.port}`
-})
+  url: `redis://${config.redis.host}:${config.redis.port}`,
+});
+console.log(RedisClient.url, "<- is redis ready?");
 
-let connected = false
+let connected = false;
 
 const connect = async () => {
   try {
     try {
-      RedisClient.on('ready', async () => {
-        const pong = await RedisClient.ping()
-        if(pong == 'PONG') {
-          connected = true
+      RedisClient.on("ready", async () => {
+        const pong = await RedisClient.ping();
+        if (pong == "PONG") {
+          connected = true;
         }
-    });
-    } catch(ex) {
-      console.log(ex)
+      });
+    } catch (ex) {
+      console.log(ex);
     }
 
-    if(!connected) {
+    if (!connected) {
       await RedisClient.connect();
     }
 
-    return RedisClient
+    return RedisClient;
   } catch (ex) {
-    console.log(ex)
+    console.log(ex);
   }
-}
+};
 
 module.exports = {
-  connect
-}
+  connect,
+};

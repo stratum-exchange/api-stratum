@@ -1,43 +1,55 @@
-[{
-	"address": "0x8B404Df32c784f0ce7c3474Df7E75C8A2DAee6e5",
-	"name": "USDC",
-	"symbol": "USDC",
-	"decimals": 6,
-	"logoURI": "https://assets-cdn.trustwallet.com/blockchains/smartchain/assets/0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d/logo.png"
-  },{
-    "address": "0x7D071377D1F76B4F5a91df464EF3d8391d07b8F0",
-    "name": "USDT",
-    "symbol": "USDT",
+[
+  {
+    "chainId": 280,
+    "name": "USD Coin",
+    "symbol": "USDC",
+    "address": "0x0faF6df7054946141266420b43783387A78d82A9",
     "decimals": 6,
-    "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xdAC17F958D2ee523a2206206994597C13D831ec7/logo.png"
-  },{
-	"address": "0xD42720F1bf20E32678d0202e7fA72BC26829c306",
-	"name": "DAI",
-	"symbol": "DAI",
-	"decimals": 18,
-	"logoURI": "https://assets-cdn.trustwallet.com/blockchains/smartchain/assets/0x1AF3F329e8BE154074D8769D1FFa4eE058B1DBc3/logo.png"
-  },{
-	"address": "0xF43E4153550ce44E3740f2Dc7e1a85C38dD51b44",
-	"name": "Binance USD",
-	"symbol": "BUSD",
-	"decimals": 18,
-	"logoURI": "https://assets-cdn.trustwallet.com/blockchains/smartchain/assets/0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56/logo.png"
-  },{
-	"address": "0x55E22D0dDD17FDd3F5bB2A87E8bea1f81FAcBe63",
-	"name": "WMTR",
-	"symbol": "WMTR",
-	"decimals": 18,
-	"logoURI": "https://raw.githubusercontent.com/meterio/token-list/master/data/MTR/logo.png"
-  },{
-	"address": "0x8A419Ef4941355476cf04933E90Bf3bbF2F73814",
-	"name": "MTRG",
-	"symbol": "MTRG",
-	"decimals": 18,
-	"logoURI": "https://raw.githubusercontent.com/meterio/token-list/master/data/MTRG/logo.png"
-  },{
-	"address": "0x5AF59D93FFB7652CAaec43703D511CE93db40Eb3",
-	"name": "Ethereum",
-	"symbol": "ETH",
-	"decimals": 18,
-	"logoURI": "https://raw.githubusercontent.com/meterio/token-list/master/data/ETH/logo.png"
-}]
+    "logoURI": "https://assets.coingecko.com/coins/images/6319/large/USD_Coin_icon.png",
+    "liquid_staked_address": "",
+    "tags": ["stablecoin"]
+  },
+  {
+    "chainId": 280,
+    "name": "DAI",
+    "symbol": "DAI",
+    "address": "0x3e7676937A7E96CFB7616f255b9AD9FF47363D4b",
+    "decimals": 18,
+    "logoURI": "https://assets.coingecko.com/coins/images/9956/large/4943.png?1636636734",
+    "liquid_staked_address": "",
+
+    "tags": ["stablecoin"]
+  },
+  {
+    "chainId": 280,
+    "name": "Link",
+    "symbol": "LINK",
+    "address": "0x40609141Db628BeEE3BfAB8034Fc2D8278D0Cc78",
+    "decimals": 18,
+    "logoURI": "https://firebasestorage.googleapis.com/v0/b/token-library.appspot.com/o/link.svg?alt=media&token=1985e3d8-3aa7-4d04-8839-565d4c341615",
+    "liquid_staked_address": "",
+
+    "tags": ["volatilecoin"]
+  },
+  {
+    "chainId": 280,
+    "name": "Wrapped Bitcoin",
+    "symbol": "WBTC",
+    "address": "0x0BfcE1D53451B4a8175DD94e6e029F7d8a701e9c",
+    "decimals": 8,
+    "logoURI": "https://assets.coingecko.com/coins/images/7598/large/wrapped_bitcoin_wbtc.png?1548822744",
+    "liquid_staked_address": "",
+
+    "tags": ["volatilecoin"]
+  },
+  {
+    "chainId": 280,
+    "name": "Stratum",
+    "symbol": "STRAT",
+    "address": "0x687407d7542E2C28f739bB5c4b4f8B3c5930ad99",
+    "decimals": 18,
+    "logoURI": "https://stratumexchange.com/favicon.png",
+    "liquid_staked_address": "",
+    "tags": ["volatilecoin"]
+  }
+]
