@@ -45,7 +45,7 @@ const model = {
 
       const removedDuplpicates = tokensLists
         .filter((t) => {
-          return t.chainId === 83 && t.decimals !== "";
+          return t.chainId === config.chainId && t.decimals !== "";
         })
         .filter(
           (value, index, self) =>
@@ -71,7 +71,7 @@ const model = {
       if (config.testnet === "1") {
         let rawdata = fs.readFileSync("testnet-token-list.json");
         let tokenList = JSON.parse(rawdata);
-
+        // console.log(tokenList);
         const RC = await redisHelper.connect();
         const d = await RC.set("baseAssets", JSON.stringify(tokenList));
 
@@ -98,7 +98,7 @@ const model = {
         return next(null, req, res, next);
       }
     } catch (ex) {
-      console.log("here3");
+      // console.log("here3");
       console.error(ex);
       res.status(500);
       res.body = { status: 500, success: false, data: ex };
@@ -112,7 +112,7 @@ const model = {
       //const url = `https://api.covalenthq.com/v1/pricing/tickers/?quote-currency=USD&format=JSON&tickers=USDC,MTR&key=${key}`
       const url = `https://api.coingecko.com/api/v3/simple/price?ids=meter-stable,meter,usd-coin,dai&vs_currencies=USD`;
       const prices = await request(url);
-      console.log("prices:", prices);
+      // console.log("prices:", prices);
       const dd = JSON.parse(prices);
       //const priceList = dd.data.items
       const quoteList = Object.values(dd);
@@ -374,7 +374,7 @@ const model = {
       console.log("GAUGES:", CONTRACTS.GAUGES_ADDRESS);
       const [allPairsLength, totalWeight] = await Promise.all([
         factoryContract.methods.allPairsLength().call(),
-        // gaugesContract.methods.totalWeight().call(),
+        gaugesContract.methods.totalWeight().call(),
       ]);
 
       const arr = Array.from({ length: parseInt(allPairsLength) }, (v, i) => i);
@@ -412,10 +412,22 @@ const model = {
             gaugesContract.methods.weights(pairAddress),
           ]);
 
-          //console.log(reserves, token0Address, token1Address, totalSupply, symbol, decimals, stable, gaugeAddress, gaugeWeight)
+          // console.log(
+          //   reserves,
+          //   token0Address,
+          //   token1Address,
+          //   totalSupply,
+          //   symbol,
+          //   decimals,
+          //   stable,
+          //   gaugeAddress,
+          //   gaugeWeight
+          // );
 
           const token0 = await model._getBaseAsset(web3, token0Address);
           const token1 = await model._getBaseAsset(web3, token1Address);
+
+          // console.log(token0, token1);
 
           const thePair = {
             address: pairAddress,
@@ -516,7 +528,7 @@ const model = {
               bribes: bribes,
             };
           }
-
+          // console.log(thePair);
           return thePair;
         })
       );
@@ -546,11 +558,15 @@ const model = {
       const ba = await RedisClient.get("baseAssets");
       const baseAssets = JSON.parse(ba);
 
+      // console.log("-->", baseAssets);
+
       let xa = await RedisClient.get("extraAssets");
       if (!xa || xa.length === 0) {
         xa = "[]";
       }
       const extraAssets = JSON.parse(xa);
+
+      // console.log("xx>", extraAssets);
 
       const allAssets = [...baseAssets, ...extraAssets];
 
@@ -594,10 +610,12 @@ const model = {
         symbol: symbol,
         name: name,
         decimals: parseInt(decimals),
-        chainId: 83,
+        chainId: config.chainId,
         logoURI: null,
         isWhitelisted: isWhitelisted,
       };
+
+      console.log("-->", newBaseAsset);
 
       extraAssets.push(newBaseAsset);
 

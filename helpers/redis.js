@@ -4,7 +4,6 @@ const redis = require("redis");
 const RedisClient = redis.createClient({
   url: `redis://${config.redis.host}:${config.redis.port}`,
 });
-console.log(RedisClient.url, "<- is redis ready?");
 
 let connected = false;
 

@@ -2,6 +2,7 @@ require("dotenv").config();
 
 const config = {
   testnet: process.env.TESTNET,
+  chainId: process.env.CHAINID,
 
   web3: {
     provider: process.env.PROVIDER,

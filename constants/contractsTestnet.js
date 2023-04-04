@@ -6,7 +6,7 @@ module.exports.FACTORY_ABI = abis.factoryABI;
 module.exports.ROUTER_ADDRESS = "0xa3F10ED7F404aed9A72d18066A6Cee3FFC34d238";
 module.exports.ROUTER_ABI = abis.routerABI;
 
-module.exports.GAUGES_ADDRESS = "0xA48345ab8AdDA3277BadF6D9D59D231Da5ca5be2";
+module.exports.GAUGES_ADDRESS = "0xbCb6C0eACD0a2acD6969913B5321aA5bfDD290a2";
 module.exports.GAUGES_ABI = abis.gaugesABI;
 
 module.exports.ERC20_ABI = abis.erc20ABI;
