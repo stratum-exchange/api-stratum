@@ -15,6 +15,5 @@ gulpfile.js
 !.elasticbeanstalk/*.global.yml
 
 .env
-.env
 
 package-lock.json
