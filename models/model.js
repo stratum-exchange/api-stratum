@@ -319,7 +319,6 @@ const model = {
     try {
       const RedisClient = await redisHelper.connect();
 
-      const upd = await RedisClient.get("updateAssets");
       const reply = await RedisClient.get("baseAssets");
       const baseAssets = JSON.parse(reply);
 
