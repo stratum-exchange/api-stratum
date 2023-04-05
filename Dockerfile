@@ -1,4 +1,4 @@
-# Use a Node.js 14 image as the base
+# Use a Node.js 16 image as the base
 FROM node:16
 
 # Set the working directory to /app
@@ -17,4 +17,4 @@ COPY . .
 EXPOSE 3033
 
 # Start the app when the container is run
-CMD ["npm", "start"]
+CMD ["npm", "run", "start"]
