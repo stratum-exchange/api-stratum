@@ -11,16 +11,19 @@ const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
 const CoinGeckoClient = new CoinGecko();
 
 let CONTRACTS = null;
+let tokenlistpath = null;
 if (config.testnet === "1") {
-  CONTRACTS = require("../constants/contractsTestnet.js");
+  CONTRACTS = require(`../constants/${config.chain.toLowerCase()}/contractsTestnet.js`);
+  tokenlistpath = `constants/${config.chain.toLowerCase()}/testnet-token-list.json`;
 } else {
-  CONTRACTS = require("../constants/contracts.js");
+  CONTRACTS = require(`../constants/${config.chain.toLowerCase()}/contracts.js`);
+  tokenlistpath = `../constants/${config.chain.toLowerCase()}/token-list.json`;
 }
 
 const model = {
   async mergeTokenLists(req, res, next) {
     try {
-      let rawdata = fs.readFileSync("testnet-token-list.json");
+      let rawdata = fs.readFileSync(tokenlistpath);
       let tokenList = JSON.parse(rawdata);
 
       // get mtr tokens from tokenlists
@@ -69,7 +72,7 @@ const model = {
   async updateAssets(req, res, next) {
     try {
       if (config.testnet === "1") {
-        let rawdata = fs.readFileSync("testnet-token-list.json");
+        let rawdata = fs.readFileSync(tokenlistpath);
         let tokenList = JSON.parse(rawdata);
         // console.log(tokenList);
         const RC = await redisHelper.connect();
@@ -335,12 +338,13 @@ const model = {
 
   getRouteAssets(req, res, next) {
     try {
-      const routeAssets = [
-        config.wmtr,
-        config.dai,
-        config.usdc,
-        config.stratum,
-      ];
+      // const routeAssets = [
+      //   config.wmtr,
+      //   config.dai,
+      //   config.usdc,
+      //   config.stratum,
+      // ];
+      const routeAssets = config.routeAssets;
       res.status(205);
       res.body = { status: 200, success: true, data: routeAssets };
       return next(null, req, res, next);

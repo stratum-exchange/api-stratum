@@ -1,0 +1,53 @@
+[
+  {
+    "chainId": 80001,
+    "name": "LUSD",
+    "symbol": "LUSD",
+    "address": "0x548789Ca36736DB177458F8736513D92C182fA90",
+    "decimals": 18,
+    "logoURI": "https://assets.coingecko.com/coins/images/14666/small/Group_3.png?1617631327",
+    "liquid_staked_address": "",
+    "tags": ["stablecoin"]
+  },
+  {
+    "chainId": 80001,
+    "name": "Wrapped ETH",
+    "symbol": "ETH",
+    "address": "0x9BCAef244Cb6d4A0746aeAa6c3906900C48226fA",
+    "decimals": 18,
+    "logoURI": "https://assets.coingecko.com/coins/images/279/small/ethereum.png?1595348880",
+    "liquid_staked_address": "",
+
+    "tags": ["volatilecoin"]
+  },
+  {
+    "chainId": 80001,
+    "name": "Stratum",
+    "symbol": "STRAT",
+    "address": "0xe169a313fe1BCa4268899B3cBc492F92FA6baEE8",
+    "decimals": 18,
+    "logoURI": "https://stratumexchange.com/favicon.png",
+    "liquid_staked_address": "",
+    "tags": ["volatilecoin"]
+  },
+  {
+    "chainId": 80001,
+    "name": "FunToken",
+    "symbol": "FUN",
+    "address": "0xeec5248d05bf5222404Ef0b1Da7FC094B6392A9a",
+    "decimals": 18,
+    "logoURI": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGMuAsIJaimGE7Tof1LY2eBfuRwtbesbD29w&usqp=CAU",
+    "liquid_staked_address": "",
+    "tags": ["volatilecoin"]
+  },
+  {
+    "chainId": 80001,
+    "name": "FunToken",
+    "symbol": "ZZZ",
+    "address": "0x7eB95D651821529A9Aa714C1bCE718992a42d0Ee",
+    "decimals": 18,
+    "logoURI": "https://cdn-icons-png.flaticon.com/512/472/472529.png",
+    "liquid_staked_address": "",
+    "tags": ["volatilecoin"]
+  }
+]

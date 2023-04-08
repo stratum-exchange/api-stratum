@@ -1,4 +1,4 @@
-const abis = require("./abis");
+const abis = require("../abis/abis");
 
 module.exports.FACTORY_ADDRESS = "0x5719482Df266cf4558578faE1BF8E89BD37e7403";
 module.exports.FACTORY_ABI = abis.factoryABI;

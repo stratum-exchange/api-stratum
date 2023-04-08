@@ -1,0 +1,23 @@
+[
+  {
+    "chainId": 80001,
+    "name": "Wrapped ETH",
+    "symbol": "ETH",
+    "address": "0x9BCAef244Cb6d4A0746aeAa6c3906900C48226fA",
+    "decimals": 18,
+    "logoURI": "https://assets.coingecko.com/coins/images/279/small/ethereum.png?1595348880",
+    "liquid_staked_address": "",
+
+    "tags": ["volatilecoin"]
+  },
+  {
+    "chainId": 80001,
+    "name": "Stratum",
+    "symbol": "STRAT",
+    "address": "0xe169a313fe1BCa4268899B3cBc492F92FA6baEE8",
+    "decimals": 18,
+    "logoURI": "https://stratumexchange.com/favicon.png",
+    "liquid_staked_address": "",
+    "tags": ["volatilecoin"]
+  }
+]
