@@ -5,6 +5,7 @@ const morgan = require("morgan");
 const helmet = require("helmet");
 const https = require("https");
 const auth = require("http-auth");
+const model = require('./models/model.js');
 
 /*  QTdEQTlBMDUwNzMxMTE3MDBFNDcyMTEwODBCOUE5RkEyMzFFNjMyMDhEMTc0NjQ1MEJGMkZDREVCNTU4OTlFQTowQTZDMkQyMkYxNDcwOTNFQ0NERUFFMzE4MTQ5NUE2RjUyNkUzREI1NzBDMkVFQTkzREI5QzEwOEZBQkNFOTc5 */
 // var basic = auth.basic(
@@ -18,6 +19,16 @@ const auth = require("http-auth");
 //     );
 //   }
 // );
+
+async function updateAssetsMiddleware(req, res, next) {
+  try {
+    await model.updateAssets();
+    next();
+  } catch (ex) {
+    console.error('Error updating assets:', ex);
+    next();
+  }
+}
 
 var app = express();
 
@@ -37,6 +48,8 @@ app.all("/*", function (req, res, next) {
     next();
   }
 });
+
+app.use(updateAssetsMiddleware);
 
 app.all("/health", function (req, res, next) {
   res.status(200);
