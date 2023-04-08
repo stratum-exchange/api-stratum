@@ -15,4 +15,14 @@ API is running on port 3033 http://localhost:3033
 
 ## Docker
 
-[TBD]
+Please make sure you have [Docker](https://docs.docker.com/install/) first.
+
+Next, make a copy of the needed `.env.example` file, and update the relevant variables.
+
+Finally, to start the services run:
+
+    docker compose up
+
+This will start two services:
+- `app`: the backend
+- A redis instance
