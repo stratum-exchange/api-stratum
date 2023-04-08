@@ -11,6 +11,7 @@ services:
   app:
     build:
       context: .
+    image: pbarny/stratum-api
     ports:
       - "3033:3033"
     volumes:
