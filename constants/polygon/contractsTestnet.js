@@ -1,12 +1,36 @@
 const abis = require("../abis/abis");
 
-module.exports.FACTORY_ADDRESS = "0x95D0f5bD9BCA1DB2b51Bd463b195c8494c4B640e";
+// Deplyoed contracts
+const WETH = "0xa2E4532FeAd9CcCBF2EB3639fd9673E943EAdd47";
+const Stratum = "0x1c29936382CAC776B4D0728B984B2f7109285031";
+const GaugeFactory = "0xE2Db2e1fDA9C781b7014f822D4dE2AF95d21E086";
+const BribeFactory = "0x79f77997547091d78A17787B9F516ba647A4bB29";
+const PairFactory = "0x2c9854B763A9A7D2a46DFaf5a4d3e880D3c00A8C";
+const Router = "0xeeC3de0eF6be1084c9A844e7FCe18A59DbAdF8ae";
+const Library = "0xc95eF8d63e85e6e3DEe198c1fb770c9467309977";
+const VeArtProxy = "0x0b30d7757EF31c041f419Ec2eB7Cc560663b50C6";
+const VotingEscrow = "0xF8D4092890ACC898e6B6F4c4De9c045082311798";
+const RewardsDistributor = "0x5FAe3B8641E08D079c0acF8F92968fAE95cdd98e";
+const Voter = "0x7203857b0e8963b19BFf922A9F66124EaBE5C287";
+const WrappedExternalBribeFactory =
+  "0x88128a0F5B611eA2B8f03618408db5E2E05E0F6d";
+const Minter = "0x93a308eA49CdbF3e6D84438a794846Bad619323a";
+const StratumGovernor = "0xFAD3401b0F78841600aB5B68A46106c2ec8efaec";
+const MerkleClaim = "0xA64e6484Ef9F22868B38aAb067e2EaFa818286eA";
+const LUSD = "0xAf4522EcFa53915802eb0b0a4d5377db6Ba48a3F";
+const Multicall = "0x7D902aa0d30027A8Db3E13C8a8EC95cc3b3E2192";
+
+// ********************************
+
+// module.exports.FACTORY_ADDRESS = "0x95D0f5bD9BCA1DB2b51Bd463b195c8494c4B640e";
+module.exports.FACTORY_ADDRESS = PairFactory;
 module.exports.FACTORY_ABI = abis.factoryABI;
 
-module.exports.ROUTER_ADDRESS = "0x4842264a641289256434251D5804203a342BCAEA";
+// module.exports.ROUTER_ADDRESS = "0x4842264a641289256434251D5804203a342BCAEA";
+module.exports.ROUTER_ADDRESS = Router;
 module.exports.ROUTER_ABI = abis.routerABI;
 
-module.exports.GAUGES_ADDRESS = "0x8a02a6c1260387464648D12956bDEF947591b096";
+module.exports.GAUGES_ADDRESS = Voter;
 module.exports.GAUGES_ABI = abis.gaugesABI;
 
 module.exports.ERC20_ABI = abis.erc20ABI;
@@ -16,6 +40,7 @@ module.exports.BRIBE_ABI = abis.bribeABI;
 module.exports.TOKEN_ABI = abis.tokenABI;
 
 module.exports.MULTICALL_ADDRESS = "0x7D902aa0d30027A8Db3E13C8a8EC95cc3b3E2192";
+module.exports.MULTICALL_ADDRESS = Multicall;
 
 /*
 zkSync alpha testnet

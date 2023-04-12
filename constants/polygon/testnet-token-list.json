@@ -24,7 +24,7 @@
     "chainId": 80001,
     "name": "Stratum",
     "symbol": "STRAT",
-    "address": "0xe169a313fe1BCa4268899B3cBc492F92FA6baEE8",
+    "address": "0x1c29936382CAC776B4D0728B984B2f7109285031",
     "decimals": 18,
     "logoURI": "https://stratumexchange.com/favicon.png",
     "liquid_staked_address": "",
@@ -47,6 +47,16 @@
     "address": "0x7eB95D651821529A9Aa714C1bCE718992a42d0Ee",
     "decimals": 18,
     "logoURI": "https://cdn-icons-png.flaticon.com/512/472/472529.png",
+    "liquid_staked_address": "",
+    "tags": ["volatilecoin"]
+  },
+  {
+    "chainId": 80001,
+    "name": "FunToken",
+    "symbol": "KEK",
+    "address": "0x4BEBb93E644236a0d065883bc8F398d19ec62803",
+    "decimals": 18,
+    "logoURI": "https://w7.pngwing.com/pngs/926/505/png-transparent-cupcake-computer-icons-cake-pop-cupcake-icon-food-cake-artwork-thumbnail.png",
     "liquid_staked_address": "",
     "tags": ["volatilecoin"]
   }

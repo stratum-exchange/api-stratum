@@ -74,7 +74,7 @@ const model = {
       if (config.testnet === "1") {
         let rawdata = fs.readFileSync(tokenlistpath);
         let tokenList = JSON.parse(rawdata);
-        // console.log(tokenList);
+        console.log(tokenList);
         const RC = await redisHelper.connect();
         const d = await RC.set("baseAssets", JSON.stringify(tokenList));
 
@@ -456,44 +456,65 @@ const model = {
               CONTRACTS.GAUGE_ABI,
               gaugeAddress
             );
-
-            const [gaugeTotalSupply, bribeAddress] = await multicall.aggregate([
+            console.log("Gauge address:", gaugeAddress);
+            const [
+              gaugeTotalSupply,
+              internalBribeAddress,
+              externalBribeAddress,
+            ] = await multicall.aggregate([
               gaugeContract.methods.totalSupply(),
-              gaugesContract.methods.bribes(gaugeAddress),
+              gaugesContract.methods.internal_bribes(gaugeAddress),
+              gaugesContract.methods.external_bribes(gaugeAddress),
             ]);
 
-            const bribeContract = new web3.eth.Contract(
+            const internalBribeContract = new web3.eth.Contract(
               CONTRACTS.BRIBE_ABI,
-              bribeAddress
+              internalBribeAddress
+            );
+            const externalBribeContract = new web3.eth.Contract(
+              CONTRACTS.BRIBE_ABI,
+              externalBribeAddress
             );
 
-            const tokensLength = await bribeContract.methods
-              .rewardsListLength()
-              .call();
+            const [internalBribeTokensLength, externalBribeTokensLength] =
+              await multicall.aggregate([
+                internalBribeContract.methods.rewardsListLength(),
+                externalBribeContract.methods.rewardsListLength(),
+              ]);
+            console.log(
+              "token lengths:",
+              internalBribeTokensLength,
+              externalBribeTokensLength
+            );
             const arry = Array.from(
-              { length: parseInt(tokensLength) },
+              { length: parseInt(internalBribeTokensLength) },
               (v, i) => i
             );
-
+            //FIXME: manage externalBribes as well!
             let bribes = await Promise.all(
               arry.map(async (idx) => {
-                const tokenAddress = await bribeContract.methods
+                const tokenAddress = await internalBribeContract.methods
                   .rewards(idx)
                   .call();
+                console.log("Bribe token address:", tokenAddress);
                 const token = await model._getBaseAsset(web3, tokenAddress);
-                const rewardRate = await bribeContract.methods
-                  .rewardRate(tokenAddress)
-                  .call();
+                //FIXME: rewardRate has to be found <- looks like this is the rewards per second
+                // const rewardRate = await bribeContract.methods
+                //   .rewardRate(tokenAddress)
+                //   .call();
 
                 return {
                   token: token,
-                  rewardRate: BigNumber(rewardRate)
-                    .div(10 ** token.decimals)
-                    .toFixed(token.decimals),
-                  rewardAmount: BigNumber(rewardRate)
-                    .times(604800)
-                    .div(10 ** token.decimals)
-                    .toFixed(token.decimals),
+                  rewardRate: 1,
+                  rewardAmount: 1,
+                  //FIXME: if rewardRate is gathered uncomment this again and delete constant values.
+                  // rewardRate: BigNumber(rewardRate)
+                  //   .div(10 ** token.decimals)
+                  //   .toFixed(token.decimals),
+                  // rewardAmount: BigNumber(rewardRate)
+                  //   .times(604800)
+                  //   .div(10 ** token.decimals)
+                  //   .toFixed(token.decimals),
                 };
               })
             );
@@ -504,7 +525,8 @@ const model = {
 
             thePair.gauge = {
               address: gaugeAddress,
-              bribeAddress: bribeAddress,
+              bribeAddress: internalBribeAddress,
+              externalBribeAddress: externalBribeAddress,
               decimals: 18,
               totalSupply: BigNumber(gaugeTotalSupply)
                 .div(10 ** 18)
