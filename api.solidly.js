@@ -30,6 +30,16 @@ async function updateAssetsMiddleware(req, res, next) {
   }
 }
 
+async function updatePairsMiddleware(req, res, next) {
+  try {
+    await model.updatePairs();
+    next();
+  } catch (ex) {
+    console.error('Error updating pairs:', ex);
+    next();
+  }
+}
+
 var app = express();
 
 app.all("/*", function (req, res, next) {
@@ -50,6 +60,7 @@ app.all("/*", function (req, res, next) {
 });
 
 app.use(updateAssetsMiddleware);
+app.use(updatePairsMiddleware);
 
 app.all("/health", function (req, res, next) {
   res.status(200);
