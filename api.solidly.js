@@ -20,26 +20,6 @@ const model = require('./models/model.js');
 //   }
 // );
 
-async function updateAssetsMiddleware(req, res, next) {
-  try {
-    await model.updateAssets();
-    next();
-  } catch (ex) {
-    console.error('Error updating assets:', ex);
-    next();
-  }
-}
-
-async function updatePairsMiddleware(req, res, next) {
-  try {
-    await model.updatePairs();
-    next();
-  } catch (ex) {
-    console.error('Error updating pairs:', ex);
-    next();
-  }
-}
-
 var app = express();
 
 app.all("/*", function (req, res, next) {
@@ -58,9 +38,6 @@ app.all("/*", function (req, res, next) {
     next();
   }
 });
-
-app.use(updateAssetsMiddleware);
-app.use(updatePairsMiddleware);
 
 app.all("/health", function (req, res, next) {
   res.status(200);

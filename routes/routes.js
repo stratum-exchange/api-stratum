@@ -8,8 +8,8 @@ router.get('/', function (req, res, next) {
   next(null, req, res, next)
 })
 
-router.get('/api/v1/pairs', bodyParser.json(), model.getPairs)
-router.get('/api/v1/baseAssets', bodyParser.json(), model.getBaseAssets)
+router.get('/api/v1/pairs', bodyParser.json(), model.updatePairs, model.getPairs)
+router.get('/api/v1/baseAssets', bodyParser.json(), model.updateAssets, model.getBaseAssets)
 router.get('/api/v1/routeAssets', bodyParser.json(), model.getRouteAssets)
 
 router.get('/api/v1/updateAssets', bodyParser.json(), model.updateAssets)
