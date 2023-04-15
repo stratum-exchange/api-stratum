@@ -13,7 +13,7 @@ const config = {
   redis: {
     host: process.env.REDIS_HOST,
     port: process.env.REDIS_PORT,
-    // password: PROCESS.ENV.REDIS_PASSWORD
+    password: process.env.REDIS_PASSWORD
   },
 
   tokenLists: [
