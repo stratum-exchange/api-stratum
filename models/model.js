@@ -714,6 +714,11 @@ const model = {
       return next(null, req, res, next);
     }
   },
+  async priceInfo(req, res, next) {
+    res.status(200);
+    res.body = { status: 200, sucess: true, data: [] };
+    return next(null, req, res, next);
+  },
 };
 
 module.exports = model;

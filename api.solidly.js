@@ -5,7 +5,7 @@ const morgan = require("morgan");
 const helmet = require("helmet");
 const https = require("https");
 const auth = require("http-auth");
-const model = require('./models/model.js');
+const model = require("./models/model.js");
 
 /*  QTdEQTlBMDUwNzMxMTE3MDBFNDcyMTEwODBCOUE5RkEyMzFFNjMyMDhEMTc0NjQ1MEJGMkZDREVCNTU4OTlFQTowQTZDMkQyMkYxNDcwOTNFQ0NERUFFMzE4MTQ5NUE2RjUyNkUzREI1NzBDMkVFQTkzREI5QzEwOEZBQkNFOTc5 */
 // var basic = auth.basic(
@@ -25,7 +25,7 @@ async function updateAssetsMiddleware(req, res, next) {
     await model.updateAssets();
     next();
   } catch (ex) {
-    console.error('Error updating assets:', ex);
+    console.error("Error updating assets:", ex);
     next();
   }
 }
@@ -35,7 +35,7 @@ async function updatePairsMiddleware(req, res, next) {
     await model.updatePairs();
     next();
   } catch (ex) {
-    console.error('Error updating pairs:', ex);
+    console.error("Error updating pairs:", ex);
     next();
   }
 }
@@ -59,8 +59,8 @@ app.all("/*", function (req, res, next) {
   }
 });
 
-app.use(updateAssetsMiddleware);
-app.use(updatePairsMiddleware);
+// app.use(updateAssetsMiddleware);
+// app.use(updatePairsMiddleware);
 
 app.all("/health", function (req, res, next) {
   res.status(200);

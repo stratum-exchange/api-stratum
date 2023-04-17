@@ -30,6 +30,15 @@ const connect = async () => {
   }
 };
 
+const getBaseAssets = async () => {
+  const RedisClient = await redisHelper.connect();
+
+  const ba = await RedisClient.get("baseAssets");
+  const baseAssets = JSON.parse(ba);
+  return baseAssets;
+};
+
 module.exports = {
   connect,
+  getBaseAssets,
 };
