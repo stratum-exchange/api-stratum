@@ -3,6 +3,7 @@ const redis = require("redis");
 
 const RedisClient = redis.createClient({
   url: `redis://${config.redis.host}:${config.redis.port}`,
+  password: config.redis.password
 });
 
 let connected = false;
