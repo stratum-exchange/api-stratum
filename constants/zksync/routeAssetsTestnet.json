@@ -1,0 +1,33 @@
+[
+  {
+    "chainId": 280,
+    "name": "Wrapped ETH",
+    "symbol": "ETH",
+    "address": "0x454B8576Eb63e9b36E087FDe38eB7Ab077A44263",
+    "decimals": 18,
+    "logoURI": "https://assets.coingecko.com/coins/images/279/small/ethereum.png?1595348880",
+    "liquid_staked_address": "",
+
+    "tags": ["volatilecoin"]
+  },
+  {
+    "chainId": 280,
+    "name": "Stratum",
+    "symbol": "STRAT",
+    "address": "0x6F3269E28F1cA9596F001776fb894F707c011a96",
+    "decimals": 18,
+    "logoURI": "https://stratumexchange.com/favicon.png",
+    "liquid_staked_address": "",
+    "tags": ["volatilecoin"]
+  },
+  {
+    "chainId": 80001,
+    "name": "Kek",
+    "symbol": "KEK",
+    "address": "0x075C84597fAfB72562672D5166615D03Ae146443",
+    "decimals": 18,
+    "logoURI": "https://w7.pngwing.com/pngs/926/505/png-transparent-cupcake-computer-icons-cake-pop-cupcake-icon-food-cake-artwork-thumbnail.png",
+    "liquid_staked_address": "",
+    "tags": ["volatilecoin"]
+  }
+]

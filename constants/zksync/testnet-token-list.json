@@ -51,5 +51,35 @@
     "logoURI": "https://stratumexchange.com/favicon.png",
     "liquid_staked_address": "",
     "tags": ["volatilecoin"]
+  },
+  {
+    "chainId": 280,
+    "name": "FunToken",
+    "symbol": "FUN",
+    "address": "0xc90B0DdCE3215e5dA55289c762727987446beA9A",
+    "decimals": 18,
+    "logoURI": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGMuAsIJaimGE7Tof1LY2eBfuRwtbesbD29w&usqp=CAU",
+    "liquid_staked_address": "",
+    "tags": ["volatilecoin"]
+  },
+  {
+    "chainId": 280,
+    "name": "Zzzleepy",
+    "symbol": "ZZZ",
+    "address": "0x0bdd248745F9D19BE665Fd157C58aDBEdf267677",
+    "decimals": 18,
+    "logoURI": "https://cdn-icons-png.flaticon.com/512/472/472529.png",
+    "liquid_staked_address": "",
+    "tags": ["volatilecoin"]
+  },
+  {
+    "chainId": 280,
+    "name": "Kek",
+    "symbol": "KEK",
+    "address": "0x075C84597fAfB72562672D5166615D03Ae146443",
+    "decimals": 18,
+    "logoURI": "https://w7.pngwing.com/pngs/926/505/png-transparent-cupcake-computer-icons-cake-pop-cupcake-icon-food-cake-artwork-thumbnail.png",
+    "liquid_staked_address": "",
+    "tags": ["volatilecoin"]
   }
 ]
