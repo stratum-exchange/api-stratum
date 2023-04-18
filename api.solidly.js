@@ -20,23 +20,19 @@ const model = require("./models/model.js");
 //   }
 // );
 
-async function updateAssetsMiddleware(req, res, next) {
+async function updateAssetsMiddleware() {
   try {
     await model.updateAssets();
-    next();
   } catch (ex) {
     console.error("Error updating assets:", ex);
-    next();
   }
 }
 
-async function updatePairsMiddleware(req, res, next) {
+async function updatePairsMiddleware() {
   try {
     await model.updatePairs();
-    next();
   } catch (ex) {
     console.error("Error updating pairs:", ex);
-    next();
   }
 }
 
@@ -58,9 +54,6 @@ app.all("/*", function (req, res, next) {
     next();
   }
 });
-
-// app.use(updateAssetsMiddleware);
-// app.use(updatePairsMiddleware);
 
 app.all("/health", function (req, res, next) {
   res.status(200);
@@ -155,9 +148,15 @@ https.globalAgent.maxSockets = 50;
 app.set("port", 3033);
 var server = null;
 server = require("http").Server(app);
-server.listen(app.get("port"), function () {
+server.listen(app.get("port"), async function () {
   console.log("api.solidly.exchange", server.address().port);
   module.exports = server;
+
+  // once called when server started
+  await updateAssetsMiddleware()
+  console.log("Assets updated")
+  await updatePairsMiddleware()
+  console.log("Pairs updated")
 });
 
 Array.prototype.contains = function (obj) {
