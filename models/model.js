@@ -74,7 +74,7 @@ const model = {
       if (config.testnet === "1") {
         let rawdata = fs.readFileSync(tokenlistpath);
         let tokenList = JSON.parse(rawdata);
-        console.log(tokenList);
+        // console.log(tokenList);
         const RC = await redisHelper.connect();
         const d = await RC.set("baseAssets", JSON.stringify(tokenList));
 
@@ -374,8 +374,8 @@ const model = {
         CONTRACTS.GAUGES_ABI,
         CONTRACTS.GAUGES_ADDRESS
       );
-      console.log("FACTORY:", CONTRACTS.FACTORY_ADDRESS);
-      console.log("GAUGES:", CONTRACTS.GAUGES_ADDRESS);
+      // console.log("FACTORY:", CONTRACTS.FACTORY_ADDRESS);
+      // console.log("GAUGES:", CONTRACTS.GAUGES_ADDRESS);
       const [allPairsLength, totalWeight] = await Promise.all([
         factoryContract.methods.allPairsLength().call(),
         gaugesContract.methods.totalWeight().call(),
@@ -456,7 +456,7 @@ const model = {
               CONTRACTS.GAUGE_ABI,
               gaugeAddress
             );
-            console.log("Gauge address:", gaugeAddress);
+            // console.log("Gauge address:", gaugeAddress);
             const [
               gaugeTotalSupply,
               internalBribeAddress,
@@ -481,11 +481,11 @@ const model = {
                 internalBribeContract.methods.rewardsListLength(),
                 externalBribeContract.methods.rewardsListLength(),
               ]);
-            console.log(
-              "token lengths:",
-              internalBribeTokensLength,
-              externalBribeTokensLength
-            );
+            // console.log(
+            //   "token lengths:",
+            //   internalBribeTokensLength,
+            //   externalBribeTokensLength
+            // );
 
             const getBribes = async (bribeContract, gaugeContract, arry) => {
               //FIXME: manage externalBribes as well!
@@ -494,7 +494,7 @@ const model = {
                   const tokenAddress = await bribeContract.methods
                     .rewards(idx)
                     .call();
-                  console.log("Bribe token address:", tokenAddress);
+                  // console.log("Bribe token address:", tokenAddress);
                   const token = await model._getBaseAsset(web3, tokenAddress);
                   //FIXME: rewardRate has to be found <- looks like this is the rewards per second
                   let rewardRate;
@@ -503,9 +503,9 @@ const model = {
                       .left(tokenAddress)
                       .call();
 
-                    console.log(
-                      `Bribe: ${tokenAddress} for ${rewardRate} Token`
-                    );
+                    // console.log(
+                    //   `Bribe: ${tokenAddress} for ${rewardRate} Token`
+                    // );
                     //FIXME: This might be right for fees (internal bribes)
                     // rewardRate = await gaugeContract.methods
                     //   .rewardRate(tokenAddress)
