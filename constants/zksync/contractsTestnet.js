@@ -40,6 +40,9 @@ module.exports.GAUGE_ABI = abis.gaugeABI;
 module.exports.BRIBE_ABI = abis.bribeABI;
 module.exports.TOKEN_ABI = abis.tokenABI;
 
+module.exports.WRAPPED_BRIBE_FACTORY_ADDRESS = WrappedExternalBribeFactory;
+module.exports.WRAPPED_BRIBE_ABI = abis.wrappedBribeABI;
+
 module.exports.MULTICALL_ADDRESS = "0x7D902aa0d30027A8Db3E13C8a8EC95cc3b3E2192";
 module.exports.MULTICALL_ADDRESS = Multicall;
 

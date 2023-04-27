@@ -10,6 +10,8 @@ const Multicall = require("@dopex-io/web3-multicall");
 const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
 const CoinGeckoClient = new CoinGecko();
 
+let no_wrapped_bribe_Counter = 0;
+
 let CONTRACTS = null;
 let tokenlistpath = null;
 if (config.testnet === "1") {
@@ -360,7 +362,9 @@ const model = {
     try {
       const RedisClient = await redisHelper.connect();
 
-      const web3 = new Web3(config.web3.provider);
+      const web3 = new Web3(
+        new Web3.providers.HttpProvider(config.web3.provider)
+      );
       const multicall = new Multicall({
         multicallAddress: CONTRACTS.MULTICALL_ADDRESS,
         provider: web3,
@@ -374,7 +378,11 @@ const model = {
         CONTRACTS.GAUGES_ABI,
         CONTRACTS.GAUGES_ADDRESS
       );
-      // console.log("FACTORY:", CONTRACTS.FACTORY_ADDRESS);
+      console.log(
+        "FACTORY:",
+        CONTRACTS.FACTORY_ADDRESS,
+        await gaugesContract.methods.totalWeight().call()
+      );
       // console.log("GAUGES:", CONTRACTS.GAUGES_ADDRESS);
       const [allPairsLength, totalWeight] = await Promise.all([
         factoryContract.methods.allPairsLength().call(),
@@ -416,18 +424,6 @@ const model = {
             gaugesContract.methods.weights(pairAddress),
           ]);
 
-          // console.log(
-          //   reserves,
-          //   token0Address,
-          //   token1Address,
-          //   totalSupply,
-          //   symbol,
-          //   decimals,
-          //   stable,
-          //   gaugeAddress,
-          //   gaugeWeight
-          // );
-
           const token0 = await model._getBaseAsset(web3, token0Address);
           const token1 = await model._getBaseAsset(web3, token1Address);
 
@@ -467,6 +463,32 @@ const model = {
               gaugesContract.methods.external_bribes(gaugeAddress),
             ]);
 
+            //External wrapped bribe code that needs to be executed to fetch the external bribe values
+            let wrappedBribeAddress = null;
+            if (![ZERO_ADDRESS, null].includes(externalBribeAddress)) {
+              const wrappedBribeFactoryContract = new web3.eth.Contract(
+                CONTRACTS.WRAPPED_BRIBE_ABI,
+                CONTRACTS.WRAPPED_BRIBE_FACTORY_ADDRESS
+              );
+
+              wrappedBribeAddress = await wrappedBribeFactoryContract.methods
+                .oldBribeToNew(externalBribeAddress)
+                .call();
+              console.log("WBA:", gaugeAddress, wrappedBribeAddress);
+              if ([ZERO_ADDRESS, ""].includes(wrappedBribeAddress)) {
+                await model.createWrappedBribe(
+                  externalBribeAddress,
+                  no_wrapped_bribe_Counter
+                );
+                wrappedBribeAddress = await wrappedBribeFactoryContract.methods
+                  .oldBribeToNew(externalBribeAddress)
+                  .call();
+              }
+
+              //add when gauge is created! see below
+              // data["wrapped_bribe_address"] = wrappedBribeAddress;
+            }
+
             const internalBribeContract = new web3.eth.Contract(
               CONTRACTS.BRIBE_ABI,
               internalBribeAddress
@@ -481,11 +503,6 @@ const model = {
                 internalBribeContract.methods.rewardsListLength(),
                 externalBribeContract.methods.rewardsListLength(),
               ]);
-            // console.log(
-            //   "token lengths:",
-            //   internalBribeTokensLength,
-            //   externalBribeTokensLength
-            // );
 
             const getBribes = async (bribeContract, gaugeContract, arry) => {
               //FIXME: manage externalBribes as well!
@@ -532,17 +549,6 @@ const model = {
               return bribes;
             };
 
-            const arry = Array.from(
-              { length: parseInt(internalBribeTokensLength) },
-              (v, i) => i
-            );
-
-            let bribes = await getBribes(
-              internalBribeContract,
-              gaugeContract,
-              arry
-            );
-
             const arry1 = Array.from(
               { length: parseInt(externalBribeTokensLength) },
               (v, i) => i
@@ -554,10 +560,6 @@ const model = {
               arry1
             );
 
-            bribes = bribes.filter((bribe) => {
-              return bribe.token.isWhitelisted;
-            });
-
             externalBribes = externalBribes.filter((bribe) => {
               return bribe.token.isWhitelisted;
             });
@@ -566,6 +568,7 @@ const model = {
               address: gaugeAddress,
               bribeAddress: externalBribeAddress,
               internalBribeAddress: internalBribeAddress,
+              wrapped_bribe_address: wrappedBribeAddress,
               decimals: 18,
               totalSupply: BigNumber(gaugeTotalSupply)
                 .div(10 ** 18)
@@ -591,16 +594,23 @@ const model = {
                 ? BigNumber(gaugeWeight).times(100).div(totalWeight).toFixed(2)
                 : 0,
               bribes: externalBribes,
-              internalBribes: bribes,
+              // internalBribes: bribes,
             };
+
+            if (![ZERO_ADDRESS, null].includes(wrappedBribeAddress)) {
+              await model.fetchExternalRewards(web3, multicall, thePair.gauge);
+              // console.log(thePair.gauge);
+            }
+            await model.fetchInternalRewards(web3, multicall, thePair);
+            // model.updateApr(gauge)
           }
-          // console.log(thePair);
+          // console.log("---__>", thePair);
           return thePair;
         })
       );
-
+      no_wrapped_bribe_Counter = 0;
       const done = await RedisClient.set("pairs", JSON.stringify(ps));
-
+      // console.log(JSON.stringify(ps));
       res.status(205);
       res.body = { status: 200, success: true, data: ps };
       return next(null, req, res, next);
@@ -718,6 +728,137 @@ const model = {
     res.status(200);
     res.body = { status: 200, sucess: true, data: [] };
     return next(null, req, res, next);
+  },
+  async incrementNonce(nonce) {
+    const newNonce = nonce + no_wrapped_bribe_Counter;
+    no_wrapped_bribe_Counter++;
+    return newNonce;
+  },
+  async createWrappedBribe(bribe_address, idx) {
+    console.log("create wrapped bribe");
+    const web3 = new Web3(config.web3.provider);
+    const account = web3.eth.accounts.privateKeyToAccount(config.PRIVATE_KEY);
+    // console.log("Account for wrapped bribe creation:", account);
+    const wrapped_bribe_factory_contract = new web3.eth.Contract(
+      CONTRACTS.WRAPPED_BRIBE_ABI,
+      CONTRACTS.WRAPPED_BRIBE_FACTORY_ADDRESS
+    );
+    const nonce = await web3.eth.getTransactionCount(account.address);
+    const newNonce = await model.incrementNonce(nonce);
+
+    const checksum_address = web3.utils.toChecksumAddress(bribe_address);
+    const create_bribe_txn = wrapped_bribe_factory_contract.methods
+      .createBribe(checksum_address)
+      .encodeABI();
+
+    // const gasPrice = await web3.eth.getGasPrice();
+    // const gasLimit = await wrapped_bribe_factory_contract.methods
+    //   .createBribe(checksum_address)
+    //   .estimateGas();
+
+    const txParams = {
+      // type: "0x0",
+      to: CONTRACTS.WRAPPED_BRIBE_FACTORY_ADDRESS,
+      data: create_bribe_txn,
+      gas: 90000000,
+      gasPrice: 250000000,
+      nonce: newNonce, //nonce + idx,
+      chainId: config.chainId,
+    };
+
+    const signedTx = await web3.eth.accounts.signTransaction(
+      txParams,
+      config.PRIVATE_KEY
+    );
+
+    console.log(bribe_address, txParams, nonce, idx);
+    web3.eth
+      .sendSignedTransaction(signedTx.rawTransaction)
+      .on("transactionHash", function (txHash) {
+        console.log(txHash);
+      })
+      .on("receipt", function (receipt) {
+        console.log(receipt);
+      })
+      .on("error", function (error) {
+        console.error(error);
+      });
+    console.log("sentTx");
+
+    // LOGGER.info("Created tx:", sentTx.transactionHash);
+  },
+  async fetchExternalRewards(web3, multicall, gauge) {
+    // console.log("fetchExternalRewards");
+    const wrappedBribeContract = new web3.eth.Contract(
+      CONTRACTS.BRIBE_ABI,
+      gauge.wrapped_bribe_address
+    );
+
+    const tokenLen = await wrappedBribeContract.methods
+      .rewardsListLength()
+      .call();
+    // console.log(tokenLen);
+    const rewardList = [];
+
+    for (let index = 0; index < tokenLen; index++) {
+      const bribeTokenAddress = await wrappedBribeContract.methods
+        .rewards(index)
+        .call();
+      const left = await wrappedBribeContract.methods
+        .left(bribeTokenAddress)
+        .call();
+
+      rewardList.push({ bribeTokenAddress: bribeTokenAddress, amount: left });
+    }
+    gauge.rewards = {};
+    for (const reward of rewardList) {
+      // console.log(reward);
+      const amount = Number(reward.amount);
+      const token = await model._getBaseAsset(web3, reward.bribeTokenAddress);
+      // console.log("bribe token", token);
+
+      gauge.rewards[token.address] = 0;
+      if (amount > 0) {
+        gauge.rewards[token.address] = amount / 10 ** token.decimals;
+
+        if (token.price) {
+          gauge.tbv += (amount / 10 ** token.decimals) * token.price;
+        }
+      }
+      // console.log(gauge);
+    }
+  },
+  async fetchInternalRewards(web3, multicall, pair) {
+    const gauge = pair.gauge;
+    const bribeContract = new web3.eth.Contract(
+      CONTRACTS.BRIBE_ABI,
+      gauge.internalBribeAddress
+    );
+    // console.log("fetchInternal");
+    const data = await multicall.aggregate([
+      bribeContract.methods.left(pair.token0.address),
+      bribeContract.methods.left(pair.token1.address),
+    ]);
+    const arr = [
+      { token: pair.token0, fee: data[0] },
+      { token: pair.token1, fee: data[1] },
+    ];
+    for (const tokenFee of arr) {
+      // console.log(tokenFee, gauge);
+      const token = tokenFee.token;
+      const fee = tokenFee.fee;
+
+      if (gauge.rewards[token.address]) {
+        gauge.rewards[token.address] =
+          gauge.rewards[token.address] + fee / 10 ** token.decimals;
+      } else if (fee > 0) {
+        gauge.rewards[token.address] = fee / 10 ** token.decimals;
+      }
+
+      if (token.price) {
+        gauge.tbv += (fee / 10 ** token.decimals) * token.price;
+      }
+    }
   },
 };
 

@@ -1,15 +1,16 @@
-const erc20ABI = require('./erc20ABI')
-const veTokenABI = require('./veTokenABI')
-const factoryABI = require('./factoryABI')
-const pairABI = require('./pairABI')
-const routerABI = require('./routerABI')
-const gaugesABI = require('./gaugesABI')
-const gaugeABI = require('./gaugeABI')
-const bribeABI = require('./bribeABI')
-const tokenABI = require('./tokenABI')
-const veDistABI = require('./veDistABI')
-const minterABI = require('./minterABI')
-const wmtrABI = require('./wmtrABI')
+const erc20ABI = require("./erc20ABI");
+const veTokenABI = require("./veTokenABI");
+const factoryABI = require("./factoryABI");
+const pairABI = require("./pairABI");
+const routerABI = require("./routerABI");
+const gaugesABI = require("./gaugesABI");
+const gaugeABI = require("./gaugeABI");
+const bribeABI = require("./bribeABI");
+const tokenABI = require("./tokenABI");
+const veDistABI = require("./veDistABI");
+const minterABI = require("./minterABI");
+const wmtrABI = require("./wmtrABI");
+const wrappedBribeABI = require("./wrappedBribeABI");
 
 module.exports = {
   erc20ABI,
@@ -23,5 +24,6 @@ module.exports = {
   veDistABI,
   tokenABI,
   minterABI,
-  wmtrABI
-}
+  wmtrABI,
+  wrappedBribeABI,
+};
