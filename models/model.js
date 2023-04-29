@@ -489,80 +489,80 @@ const model = {
               // data["wrapped_bribe_address"] = wrappedBribeAddress;
             }
 
-            const internalBribeContract = new web3.eth.Contract(
-              CONTRACTS.BRIBE_ABI,
-              internalBribeAddress
-            );
-            const externalBribeContract = new web3.eth.Contract(
-              CONTRACTS.BRIBE_ABI,
-              externalBribeAddress
-            );
+            // const internalBribeContract = new web3.eth.Contract(
+            //   CONTRACTS.BRIBE_ABI,
+            //   internalBribeAddress
+            // );
+            // const externalBribeContract = new web3.eth.Contract(
+            //   CONTRACTS.BRIBE_ABI,
+            //   externalBribeAddress
+            // );
 
-            const [internalBribeTokensLength, externalBribeTokensLength] =
-              await multicall.aggregate([
-                internalBribeContract.methods.rewardsListLength(),
-                externalBribeContract.methods.rewardsListLength(),
-              ]);
+            // const [internalBribeTokensLength, externalBribeTokensLength] =
+            //   await multicall.aggregate([
+            //     internalBribeContract.methods.rewardsListLength(),
+            //     externalBribeContract.methods.rewardsListLength(),
+            //   ]);
 
-            const getBribes = async (bribeContract, gaugeContract, arry) => {
-              //FIXME: manage externalBribes as well!
-              let bribes = await Promise.all(
-                arry.map(async (idx) => {
-                  const tokenAddress = await bribeContract.methods
-                    .rewards(idx)
-                    .call();
-                  // console.log("Bribe token address:", tokenAddress);
-                  const token = await model._getBaseAsset(web3, tokenAddress);
-                  //FIXME: rewardRate has to be found <- looks like this is the rewards per second
-                  let rewardRate;
-                  try {
-                    rewardRate = await bribeContract.methods
-                      .left(tokenAddress)
-                      .call();
+            // const getBribes = async (bribeContract, gaugeContract, arry) => {
+            //   //FIXME: manage externalBribes as well!
+            //   let bribes = await Promise.all(
+            //     arry.map(async (idx) => {
+            //       const tokenAddress = await bribeContract.methods
+            //         .rewards(idx)
+            //         .call();
+            //       // console.log("Bribe token address:", tokenAddress);
+            //       const token = await model._getBaseAsset(web3, tokenAddress);
+            //       //FIXME: rewardRate has to be found <- looks like this is the rewards per second
+            //       let rewardRate;
+            //       try {
+            //         rewardRate = await bribeContract.methods
+            //           .left(tokenAddress)
+            //           .call();
 
-                    // console.log(
-                    //   `Bribe: ${tokenAddress} for ${rewardRate} Token`
-                    // );
-                    //FIXME: This might be right for fees (internal bribes)
-                    // rewardRate = await gaugeContract.methods
-                    //   .rewardRate(tokenAddress)
-                    //   .call();
-                  } catch (error) {
-                    console.log(
-                      `this address ${tokenAddress} produced this error: ${error}`
-                    );
-                  }
+            //         // console.log(
+            //         //   `Bribe: ${tokenAddress} for ${rewardRate} Token`
+            //         // );
+            //         //FIXME: This might be right for fees (internal bribes)
+            //         // rewardRate = await gaugeContract.methods
+            //         //   .rewardRate(tokenAddress)
+            //         //   .call();
+            //       } catch (error) {
+            //         console.log(
+            //           `this address ${tokenAddress} produced this error: ${error}`
+            //         );
+            //       }
 
-                  //FIXME: if rewardRate is gathered uncomment this again and delete constant values.
+            //       //FIXME: if rewardRate is gathered uncomment this again and delete constant values.
 
-                  return {
-                    token: token,
-                    rewardRate: BigNumber(rewardRate)
-                      .div(10 ** token.decimals)
-                      .toFixed(token.decimals),
-                    rewardAmount: BigNumber(rewardRate)
-                      .div(10 ** token.decimals)
-                      .toFixed(token.decimals),
-                  };
-                })
-              );
-              return bribes;
-            };
+            //       return {
+            //         token: token,
+            //         rewardRate: BigNumber(rewardRate)
+            //           .div(10 ** token.decimals)
+            //           .toFixed(token.decimals),
+            //         rewardAmount: BigNumber(rewardRate)
+            //           .div(10 ** token.decimals)
+            //           .toFixed(token.decimals),
+            //       };
+            //     })
+            //   );
+            //   return bribes;
+            // };
 
-            const arry1 = Array.from(
-              { length: parseInt(externalBribeTokensLength) },
-              (v, i) => i
-            );
+            // const arry1 = Array.from(
+            //   { length: parseInt(externalBribeTokensLength) },
+            //   (v, i) => i
+            // );
 
-            let externalBribes = await getBribes(
-              externalBribeContract,
-              gaugeContract,
-              arry1
-            );
+            // let externalBribes = await getBribes(
+            //   externalBribeContract,
+            //   gaugeContract,
+            //   arry1
+            // );
 
-            externalBribes = externalBribes.filter((bribe) => {
-              return bribe.token.isWhitelisted;
-            });
+            // externalBribes = externalBribes.filter((bribe) => {
+            //   return bribe.token.isWhitelisted;
+            // });
 
             thePair.gauge = {
               address: gaugeAddress,
@@ -593,7 +593,7 @@ const model = {
               weightPercent: BigNumber(totalWeight).gt(0)
                 ? BigNumber(gaugeWeight).times(100).div(totalWeight).toFixed(2)
                 : 0,
-              bribes: externalBribes,
+              // bribes: externalBribes,
               // internalBribes: bribes,
             };
 
@@ -810,21 +810,24 @@ const model = {
 
       rewardList.push({ bribeTokenAddress: bribeTokenAddress, amount: left });
     }
-    gauge.rewards = {};
+    gauge.bribes = [];
     for (const reward of rewardList) {
       // console.log(reward);
       const amount = Number(reward.amount);
       const token = await model._getBaseAsset(web3, reward.bribeTokenAddress);
       // console.log("bribe token", token);
-
-      gauge.rewards[token.address] = 0;
+      const wrappedExternalBribe = {
+        token: token,
+        rewardAmount: 0,
+      };
       if (amount > 0) {
-        gauge.rewards[token.address] = amount / 10 ** token.decimals;
+        wrappedExternalBribe.rewardAmount = amount / 10 ** token.decimals;
 
         if (token.price) {
           gauge.tbv += (amount / 10 ** token.decimals) * token.price;
         }
       }
+      gauge.bribes.push(wrappedExternalBribe);
       // console.log(gauge);
     }
   },
@@ -847,7 +850,7 @@ const model = {
       // console.log(tokenFee, gauge);
       const token = tokenFee.token;
       const fee = tokenFee.fee;
-
+      gauge.rewards = {};
       if (gauge.rewards[token.address]) {
         gauge.rewards[token.address] =
           gauge.rewards[token.address] + fee / 10 ** token.decimals;
