@@ -325,7 +325,13 @@ const model = {
       const RedisClient = await redisHelper.connect();
 
       const reply = await RedisClient.get("baseAssets");
-      const baseAssets = JSON.parse(reply);
+      let baseAssets = JSON.parse(reply);
+
+      if (!baseAssets) {
+        await model.updateAssets(req, res, next);
+        const updatedReply = await RedisClient.get("baseAssets");
+        baseAssets = JSON.parse(updatedReply);
+      }
 
       res.status(205);
       res.body = { status: 200, success: true, data: baseAssets };
@@ -819,7 +825,14 @@ const model = {
       const RedisClient = await redisHelper.connect();
 
       const reply = await RedisClient.get("pairs");
-      const pairs = JSON.parse(reply);
+      let pairs = JSON.parse(reply);
+
+      if (!pairs) {
+        await model.updateAssets(req, res, next);
+        await model.updatePairs(req, res, next);
+        const updatedReply = await RedisClient.get("pairs");
+        pairs = JSON.parse(updatedReply);
+      }
 
       res.status(205);
       res.body = { status: 200, success: true, data: pairs };
