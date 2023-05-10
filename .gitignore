@@ -17,3 +17,4 @@ gulpfile.js
 .env
 
 package-lock.json
+constants/zksync/contractsTestnet.2pool.js

@@ -397,55 +397,155 @@ const model = {
             .allPairs(idx)
             .call();
 
-          const pairContract = new web3.eth.Contract(
-            CONTRACTS.PAIR_ABI,
-            pairAddress
-          );
+          let thePair = null;
+          let gaugeAddress = null;
+          let gaugeWeight = null;
+          let is3Pool = false;
+          try {
+            is3Pool = await factoryContract.methods.is3pool(pairAddress).call();
+            console.log("pairAddress:", pairAddress, is3Pool);
+          } catch (error) {
+            is3pool = false;
+          }
+          if (is3Pool) {
+            // if 3pool handle pool information
+            const pool3Contract = new web3.eth.Contract(
+              CONTRACTS.POOL3_ROUTER_ABI,
+              pairAddress
+            );
+            console.log("call 3pool function");
+            // const tokenArr = await pool3Contract.methods
+            //   .getTokensArray()
+            //   .call();
 
-          const [
-            reserves,
-            token0Address,
-            token1Address,
-            totalSupply,
-            symbol,
-            decimals,
-            stable,
-            gaugeAddress,
-            gaugeWeight,
-          ] = await multicall.aggregate([
-            pairContract.methods.getReserves(),
-            pairContract.methods.token0(),
-            pairContract.methods.token1(),
-            pairContract.methods.totalSupply(),
-            pairContract.methods.symbol(),
-            pairContract.methods.decimals(),
-            pairContract.methods.stable(),
-            gaugesContract.methods.gauges(pairAddress),
-            gaugesContract.methods.weights(pairAddress),
-          ]);
+            // const reserve0 = await pool3Contract.methods
+            //   .getTokenBalance(0)
+            //   .call();
+            // const reserve1 = await pool3Contract.methods
+            //   .getTokenBalance(1)
+            //   .call();
+            // const reserve2 = await pool3Contract.methods
+            //   .getTokenBalance(2)
+            //   .call();
+            // console.log(tokenArr);
+            const [tokenArr, reserve0, reserve1, reserve2] =
+              await multicall.aggregate([
+                pool3Contract.methods.getTokensArray(),
+                pool3Contract.methods.getTokenBalance(0),
+                pool3Contract.methods.getTokenBalance(1),
+                pool3Contract.methods.getTokenBalance(2),
+              ]);
+            const token0 = await model._getBaseAsset(web3, tokenArr[0]);
+            const token1 = await model._getBaseAsset(web3, tokenArr[1]);
+            const token2 = await model._getBaseAsset(web3, tokenArr[2]);
+            console.log(token0, token1, token2, reserve0, reserve1, reserve2);
+            const swapStorage = await pool3Contract.methods
+              .swapStorage()
+              .call();
 
-          const token0 = await model._getBaseAsset(web3, token0Address);
-          const token1 = await model._getBaseAsset(web3, token1Address);
+            const lpTokenContract = new web3.eth.Contract(
+              CONTRACTS.LP_TOKEN_ABI,
+              swapStorage.lpToken
+            );
+            // const symbol = await lpTokenContract.methods.symbol().call();
+            // const decimals = await lpTokenContract.methods.decimals().call();
+            // const totalSupply = await lpTokenContract.methods
+            //   .totalSupply()
+            //   .call();
+            const [decimals, symbol, totalSupply, _gaugeAddress, _gaugeWeight] =
+              await multicall.aggregate([
+                lpTokenContract.methods.decimals(),
+                lpTokenContract.methods.symbol(),
+                lpTokenContract.methods.totalSupply(),
+                gaugesContract.methods.gauges(swapStorage.lpToken), // is swapStorage.lpToken, but ZERO Adress is good for testing
+                gaugesContract.methods.weights(swapStorage.lpToken),
+              ]);
+            console.log(
+              symbol,
+              decimals,
+              totalSupply,
+              _gaugeAddress,
+              _gaugeWeight
+            );
 
-          // console.log(token0, token1);
+            gaugeAddress = _gaugeAddress;
+            gaugeWeight = _gaugeWeight;
 
-          const thePair = {
-            address: pairAddress,
-            symbol: symbol,
-            decimals: parseInt(decimals),
-            isStable: stable,
-            token0: token0,
-            token1: token1,
-            totalSupply: BigNumber(totalSupply)
-              .div(10 ** decimals)
-              .toFixed(parseInt(decimals)),
-            reserve0: BigNumber(reserves[0])
-              .div(10 ** decimals)
-              .toFixed(parseInt(decimals)),
-            reserve1: BigNumber(reserves[1])
-              .div(10 ** decimals)
-              .toFixed(parseInt(decimals)),
-          };
+            thePair = {
+              address: pairAddress,
+              symbol: symbol,
+              decimals: parseInt(decimals),
+              isStable: true,
+              token0: token0,
+              token1: token1,
+              token2: token2,
+              totalSupply: BigNumber(totalSupply)
+                .div(10 ** decimals)
+                .toFixed(parseInt(decimals)),
+              reserve0: BigNumber(reserve0)
+                .div(10 ** decimals)
+                .toFixed(parseInt(decimals)),
+              reserve1: BigNumber(reserve1)
+                .div(10 ** decimals)
+                .toFixed(parseInt(decimals)),
+              reserve2: BigNumber(reserve2)
+                .div(10 ** decimals)
+                .toFixed(parseInt(decimals)),
+            };
+          } else {
+            // we expect pairs here
+            const pairContract = new web3.eth.Contract(
+              CONTRACTS.PAIR_ABI,
+              pairAddress
+            );
+
+            const [
+              reserves,
+              token0Address,
+              token1Address,
+              totalSupply,
+              symbol,
+              decimals,
+              stable,
+              _gaugeAddress,
+              _gaugeWeight,
+            ] = await multicall.aggregate([
+              pairContract.methods.getReserves(),
+              pairContract.methods.token0(),
+              pairContract.methods.token1(),
+              pairContract.methods.totalSupply(),
+              pairContract.methods.symbol(),
+              pairContract.methods.decimals(),
+              pairContract.methods.stable(),
+              gaugesContract.methods.gauges(pairAddress),
+              gaugesContract.methods.weights(pairAddress),
+            ]);
+
+            const token0 = await model._getBaseAsset(web3, token0Address);
+            const token1 = await model._getBaseAsset(web3, token1Address);
+            gaugeAddress = _gaugeAddress;
+            gaugeWeight = _gaugeWeight;
+
+            thePair = {
+              address: pairAddress,
+              symbol: symbol,
+              decimals: parseInt(decimals),
+              isStable: stable,
+              token0: token0,
+              token1: token1,
+              totalSupply: BigNumber(totalSupply)
+                .div(10 ** decimals)
+                .toFixed(parseInt(decimals)),
+              reserve0: BigNumber(reserves[0])
+                .div(10 ** decimals)
+                .toFixed(parseInt(decimals)),
+              reserve1: BigNumber(reserves[1])
+                .div(10 ** decimals)
+                .toFixed(parseInt(decimals)),
+            };
+          }
+
+          console.log(gaugeAddress, ZERO_ADDRESS);
 
           if (gaugeAddress !== ZERO_ADDRESS) {
             const gaugeContract = new web3.eth.Contract(
@@ -577,15 +677,22 @@ const model = {
                 thePair.totalSupply > 0
                   ? BigNumber(thePair.reserve0)
                       .times(gaugeTotalSupply)
-                      .div(totalSupply)
+                      .div(thePair.totalSupply)
                       .toFixed(thePair.token0.decimals)
                   : "0",
               reserve1:
                 thePair.totalSupply > 0
                   ? BigNumber(thePair.reserve1)
                       .times(gaugeTotalSupply)
-                      .div(totalSupply)
+                      .div(thePair.totalSupply)
                       .toFixed(thePair.token1.decimals)
+                  : "0",
+              reserve2:
+                thePair.totalSupply > 0 && thePair.token2
+                  ? BigNumber(thePair.reserve2)
+                      .times(gaugeTotalSupply)
+                      .div(thePair.totalSupply)
+                      .toFixed(thePair.token2.decimals)
                   : "0",
               weight: BigNumber(gaugeWeight)
                 .div(10 ** 18)
