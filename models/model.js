@@ -481,7 +481,7 @@ const model = {
               address: pairAddress,
               symbol: symbol,
               decimals: parseInt(decimals),
-              isStable: true,
+              stable: true,
               token0: token0,
               token1: token1,
               token2: token2,
@@ -536,7 +536,7 @@ const model = {
               address: pairAddress,
               symbol: symbol,
               decimals: parseInt(decimals),
-              isStable: stable,
+              stable: stable,
               token0: token0,
               token1: token1,
               totalSupply: BigNumber(totalSupply)
