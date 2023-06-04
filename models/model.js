@@ -485,6 +485,8 @@ const model = {
               token0: token0,
               token1: token1,
               token2: token2,
+              lpToken: swapStorage.lpToken,
+              is3pool: true,
               totalSupply: BigNumber(totalSupply)
                 .div(10 ** decimals)
                 .toFixed(parseInt(decimals)),
@@ -539,6 +541,7 @@ const model = {
               isStable: stable,
               token0: token0,
               token1: token1,
+              is3pool: false,
               totalSupply: BigNumber(totalSupply)
                 .div(10 ** decimals)
                 .toFixed(parseInt(decimals)),

@@ -1,11 +1,43 @@
 [
   {
     "chainId": 280,
-    "name": "Wrapped ETH",
-    "symbol": "ETH",
-    "address": "0x454B8576Eb63e9b36E087FDe38eB7Ab077A44263",
+    "name": "USD Coin",
+    "symbol": "USDC",
+    "address": "0x0faF6df7054946141266420b43783387A78d82A9",
+    "decimals": 6,
+    "logoURI": "https://assets.coingecko.com/coins/images/6319/large/USD_Coin_icon.png",
+    "liquid_staked_address": "",
+    "tags": ["stablecoin"]
+  },
+  {
+    "chainId": 280,
+    "name": "DAI",
+    "symbol": "DAI",
+    "address": "0x3e7676937A7E96CFB7616f255b9AD9FF47363D4b",
     "decimals": 18,
-    "logoURI": "https://assets.coingecko.com/coins/images/279/small/ethereum.png?1595348880",
+    "logoURI": "https://assets.coingecko.com/coins/images/9956/large/4943.png?1636636734",
+    "liquid_staked_address": "",
+
+    "tags": ["stablecoin"]
+  },
+  {
+    "chainId": 280,
+    "name": "Link",
+    "symbol": "LINK",
+    "address": "0x40609141Db628BeEE3BfAB8034Fc2D8278D0Cc78",
+    "decimals": 18,
+    "logoURI": "https://firebasestorage.googleapis.com/v0/b/token-library.appspot.com/o/link.svg?alt=media&token=1985e3d8-3aa7-4d04-8839-565d4c341615",
+    "liquid_staked_address": "",
+
+    "tags": ["volatilecoin"]
+  },
+  {
+    "chainId": 280,
+    "name": "Wrapped Bitcoin",
+    "symbol": "WBTC",
+    "address": "0x0BfcE1D53451B4a8175DD94e6e029F7d8a701e9c",
+    "decimals": 8,
+    "logoURI": "https://assets.coingecko.com/coins/images/7598/large/wrapped_bitcoin_wbtc.png?1548822744",
     "liquid_staked_address": "",
 
     "tags": ["volatilecoin"]
@@ -14,7 +46,7 @@
     "chainId": 280,
     "name": "Stratum",
     "symbol": "STRAT",
-    "address": "0x6F3269E28F1cA9596F001776fb894F707c011a96",
+    "address": "0x687407d7542E2C28f739bB5c4b4f8B3c5930ad99",
     "decimals": 18,
     "logoURI": "https://stratumexchange.com/favicon.png",
     "liquid_staked_address": "",
@@ -22,9 +54,29 @@
   },
   {
     "chainId": 80001,
+    "name": "FunToken",
+    "symbol": "FUN",
+    "address": "0xc90B0DdCE3215e5dA55289c762727987446beA9A",
+    "decimals": 18,
+    "logoURI": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGMuAsIJaimGE7Tof1LY2eBfuRwtbesbD29w&usqp=CAU",
+    "liquid_staked_address": "",
+    "tags": ["volatilecoin"]
+  },
+  {
+    "chainId": 80001,
+    "name": "Zzzleepy",
+    "symbol": "ZZZ",
+    "address": "0x0bdd248745F9D19BE665Fd157C58aDBEdf267677",
+    "decimals": 18,
+    "logoURI": "https://cdn-icons-png.flaticon.com/512/472/472529.png",
+    "liquid_staked_address": "",
+    "tags": ["volatilecoin"]
+  },
+  {
+    "chainId": 80001,
     "name": "Kek",
     "symbol": "KEK",
-    "address": "0x075C84597fAfB72562672D5166615D03Ae146443",
+    "address": "0xe2be1686641dc8514e642f4ee5a2c282f4a56a94",
     "decimals": 18,
     "logoURI": "https://w7.pngwing.com/pngs/926/505/png-transparent-cupcake-computer-icons-cake-pop-cupcake-icon-food-cake-artwork-thumbnail.png",
     "liquid_staked_address": "",
