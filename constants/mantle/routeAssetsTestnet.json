@@ -1,0 +1,52 @@
+[
+  {
+    "chainId": 5001,
+    "name": "USD Coin",
+    "symbol": "USDC",
+    "address": "0xbAF72402f98f16e77638Ce5FCC5689CD1627E8ff",
+    "decimals": 6,
+    "logoURI": "https://assets.coingecko.com/coins/images/6319/large/USD_Coin_icon.png",
+    "liquid_staked_address": "",
+    "tags": ["stablecoin"]
+  },
+  {
+    "chainId": 5001,
+    "name": "Stratum",
+    "symbol": "STRAT",
+    "address": "0x7D0091DcC9e1675f69616d4cCb19f8dB9A786c4c",
+    "decimals": 18,
+    "logoURI": "https://stratumexchange.com/favicon.png",
+    "liquid_staked_address": "",
+    "tags": ["volatilecoin"]
+  },
+  {
+    "chainId": 5001,
+    "name": "FunToken",
+    "symbol": "FUN",
+    "address": "0xc90fb0c202e57f3bBDDE17192Ba6C17f58ad7239",
+    "decimals": 18,
+    "logoURI": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGMuAsIJaimGE7Tof1LY2eBfuRwtbesbD29w&usqp=CAU",
+    "liquid_staked_address": "",
+    "tags": ["volatilecoin"]
+  },
+  {
+    "chainId": 5001,
+    "name": "Zzzleepy",
+    "symbol": "ZZZ",
+    "address": "0x2F87cA0EA6DCd4AC47b5Fe560D65269cfE3f61eE",
+    "decimals": 18,
+    "logoURI": "https://cdn-icons-png.flaticon.com/512/472/472529.png",
+    "liquid_staked_address": "",
+    "tags": ["volatilecoin"]
+  },
+  {
+    "chainId": 5001,
+    "name": "Kek",
+    "symbol": "KEK",
+    "address": "0xaDdbDF0f14B37441E2DD8332D3C3579727f87bed",
+    "decimals": 18,
+    "logoURI": "https://w7.pngwing.com/pngs/926/505/png-transparent-cupcake-computer-icons-cake-pop-cupcake-icon-food-cake-artwork-thumbnail.png",
+    "liquid_staked_address": "",
+    "tags": ["volatilecoin"]
+  }
+]

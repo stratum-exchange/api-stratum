@@ -1,0 +1,56 @@
+const abis = require("../abis/abis");
+
+module.exports.FACTORY_ADDRESS = "0x5719482Df266cf4558578faE1BF8E89BD37e7403";
+module.exports.FACTORY_ABI = abis.factoryABI;
+
+module.exports.ROUTER_ADDRESS = "0xa3F10ED7F404aed9A72d18066A6Cee3FFC34d238";
+module.exports.ROUTER_ABI = abis.routerABI;
+
+module.exports.GAUGES_ADDRESS = "0xA48345ab8AdDA3277BadF6D9D59D231Da5ca5be2";
+module.exports.GAUGES_ABI = abis.gaugesABI;
+
+module.exports.ERC20_ABI = abis.erc20ABI;
+module.exports.PAIR_ABI = abis.pairABI;
+module.exports.GAUGE_ABI = abis.gaugeABI;
+module.exports.BRIBE_ABI = abis.bribeABI;
+module.exports.TOKEN_ABI = abis.tokenABI;
+
+module.exports.MULTICALL_ADDRESS = "0x20eAD8BE118E0114DAEF69071c3f8E5a25E58456";
+
+/*
+zkSync alpha testnet
+
+Stratum = 0x687407d7542E2C28f739bB5c4b4f8B3c5930ad99
+
+GaugeFactory = 0xA48345ab8AdDA3277BadF6D9D59D231Da5ca5be2
+
+BribeFactory = 0x16aB5fb0E4e639965ffea067eE740a978c6F0EA4
+
+PairFactory = 0x5719482Df266cf4558578faE1BF8E89BD37e7403
+
+Router = 0xa3F10ED7F404aed9A72d18066A6Cee3FFC34d238
+
+Router2 = 0xC4E3D6A752f0A761CfbAE8C5c0f4e34663229D15
+
+Library = 0xF8079D670E95dE65fDEbDcc83488955c452B7A6a
+
+VeArtProxy = 0x00145AD6167751E5446ABD9c3026dd8BFc1FaE2F
+
+VotingEscrow = 0x1E1e9103Fe61AA4a4736F1fF43486c3c8e03E3f3
+
+RewardsDistributor = 0xC18B0CBd46966786B46Bda1CD93A60b8EFda665f
+
+Voter = 0xbCb6C0eACD0a2acD6969913B5321aA5bfDD290a2
+
+WrappedExternalBribeFactory = 0x16603B9f055c9f4e7e4789C82Ef8a0bB9fFDeFF9
+
+Minter = 0x436D2CF62e9102dFF5Dcc2c44d3051d7e3459E2D
+
+StratumGovernor = 0xae756E62Fa43d8e69eD1d5ed86fC42d7FFa8c7Fc
+
+MerkleClaim = 0xef7BEaA682Bb911a0b16902D8fc9F8FB51Cb42E9
+
+WETH = 0x20b28B1e4665FFf290650586ad76E977EAb90c5D
+
+Multicall = 0x20eAD8BE118E0114DAEF69071c3f8E5a25E58456
+*/

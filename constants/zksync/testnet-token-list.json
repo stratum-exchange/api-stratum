@@ -46,7 +46,7 @@
     "chainId": 280,
     "name": "Stratum",
     "symbol": "STRAT",
-    "address": "0x687407d7542E2C28f739bB5c4b4f8B3c5930ad99",
+    "address": "0x20e2383fa3Ec3b2F4022D88CFD317907F721ffd5",
     "decimals": 18,
     "logoURI": "https://stratumexchange.com/favicon.png",
     "liquid_staked_address": "",
