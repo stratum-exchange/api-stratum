@@ -6,6 +6,7 @@ const helmet = require("helmet");
 const https = require("https");
 const auth = require("http-auth");
 const model = require("./models/model.js");
+const fs = require("fs")
 
 /*  QTdEQTlBMDUwNzMxMTE3MDBFNDcyMTEwODBCOUE5RkEyMzFFNjMyMDhEMTc0NjQ1MEJGMkZDREVCNTU4OTlFQTowQTZDMkQyMkYxNDcwOTNFQ0NERUFFMzE4MTQ5NUE2RjUyNkUzREI1NzBDMkVFQTkzREI5QzEwOEZBQkNFOTc5 */
 // var basic = auth.basic(
@@ -143,11 +144,16 @@ app.use(function (err, req, res) {
   }
 });
 
+var httpsOptions = {
+    key: fs.readFileSync('/etc/ssl/app.stratumexchange.com/app.stratumexchange.com.key'),
+    cert: fs.readFileSync('/etc/ssl/app.stratumexchange.com/app.stratumexchange.com.pem')
+};
+
 var options = {};
 https.globalAgent.maxSockets = 50;
 app.set("port", 3033);
 var server = null;
-server = require("http").Server(app);
+server = https.createServer(httpsOptions, app);
 server.listen(app.get("port"), async function () {
   console.log("api.solidly.exchange", server.address().port);
   module.exports = server;
