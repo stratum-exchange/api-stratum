@@ -15,10 +15,9 @@ services:
     build:
       context: .
     expose:
-      - "3033"
+      - "3033:3033"
     volumes:
       - ./:/app
-      - /etc/ssl/app.stratumexchange.com:/etc/ssl/app.stratumexchange.com
     depends_on:
       - redis
     networks:
