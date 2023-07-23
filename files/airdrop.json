@@ -1,4 +1,26 @@
 {
+  "0x48aB8Fb06483d935A029eD16df66bF9356c32c38": {
+    "address": "0x48aB8Fb06483d935A029eD16df66bF9356c32c38",
+    "airdrops": [
+      {
+        "event": "initialLockdrop",
+        "claimable": {
+          "unlocked": {
+            "amount": 0
+          },
+          "locked": {
+            "amount": 1951,
+            "lockupPeriodWeeks": 52
+          }
+        },
+        "breakdown": "<ul><li>1951 STRAT for locking >= 20000 VELO in Velodrome at snapshot block 94579254</li></ul>",
+        "timeline": {
+          "startUtc": "202307302359",
+          "endUtc": "202407302359"
+        }
+      }
+    ]
+  },
   "0xe7d7ce84d45e43f06cd5caa1d9c42374b8776fb0": {
     "address": "0xe7d7ce84d45e43f06cd5caa1d9c42374b8776fb0",
     "airdrops": [
