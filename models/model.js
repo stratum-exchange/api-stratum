@@ -6,6 +6,7 @@ const redisHelper = require("../helpers/redis");
 const BigNumber = require("bignumber.js");
 const fs = require("fs");
 const Multicall = require("@dopex-io/web3-multicall");
+const axios = require("axios");
 
 const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
 const CoinGeckoClient = new CoinGecko();
@@ -21,6 +22,10 @@ if (config.testnet === "1") {
   CONTRACTS = require(`../constants/${config.chain.toLowerCase()}/contracts.js`);
   tokenlistpath = `../constants/${config.chain.toLowerCase()}/token-list.json`;
 }
+
+const jsonStore = {
+  airdrop: { size: 0, data: null },
+};
 
 const model = {
   async mergeTokenLists(req, res, next) {
@@ -69,6 +74,29 @@ const model = {
       res.body = { status: 500, success: false, data: ex };
       return next(null, req, res, next);
     }
+  },
+  async fileserver(req, res, next) {
+    const type = req.params.type;
+    const url = config.files[type];
+    if (url !== undefined) {
+      const response = await axios.get(url);
+      if (
+        response.headers["content-length"] !== jsonStore[type].size ||
+        jsonStore[type].data === null
+      ) {
+        console.log(
+          `Update server data [${jsonStore[type].size}, ${response.headers["content-length"]}]`
+        );
+        jsonStore[type].data = response.data;
+        jsonStore[type].size = response.headers["content-length"];
+      }
+      res.status(201);
+      res.body = { status: 201, success: true, data: jsonStore[type].data };
+      return next(null, req, res, next);
+    }
+    res.status(500);
+    res.body = { status: 500, success: false };
+    return next(null, req, res, next);
   },
 
   async updateAssets(req, res, next) {

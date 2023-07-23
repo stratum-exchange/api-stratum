@@ -21,6 +21,9 @@ const config = {
     //'https://raw.githubusercontent.com/meterio/token-list/master/generated/swap-tokens.json'
   ],
   routeAssets: [],
+  files: {
+    airdrop: process.env.AIRDROP_URL,
+  },
 };
 
 config.routeAssets = JSON.parse(

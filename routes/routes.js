@@ -20,4 +20,7 @@ router.get("/api/v1/updatePairs", bodyParser.json(), model.updatePairs);
 // additional price methods
 router.get("/api/v1/priceInfo", bodyParser.json(), model.priceInfo);
 
+// file serving for easier updates
+router.get("/api/v1/fileserver/:type", bodyParser.json(), model.fileserver)
+
 module.exports = router;
