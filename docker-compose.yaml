@@ -14,7 +14,7 @@ services:
   app:
     build:
       context: .
-    expose:
+    ports:
       - "3033:3033"
     volumes:
       - ./:/app
