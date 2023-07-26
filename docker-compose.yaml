@@ -18,7 +18,7 @@ services:
       - "3033:3033"
     volumes:
       - ./:/app
-      - /path/to/your/local/ssl/directory:/etc/ssl/private  # <-- Added this line
+      - /path/to/your/local/ssl/directory:/etc/ssl/private
     depends_on:
       - redis
     networks:
