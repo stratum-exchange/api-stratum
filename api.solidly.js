@@ -146,8 +146,8 @@ app.use(function (err, req, res) {
 
 // var options = {};
 var options = {
-  key: fs.readFileSync('/etc/ssl/private/private.key'), // path to your private key
-  cert: fs.readFileSync('/etc/ssl/certs/certificate.crt'), // path to your certificate
+  key: fs.readFileSync('/etc/ssl/private/private.key'),
+  cert: fs.readFileSync('/etc/ssl/certs/certificate.crt'),
 };
 
 https.globalAgent.maxSockets = 50;

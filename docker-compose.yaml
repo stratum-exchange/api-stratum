@@ -18,7 +18,8 @@ services:
       - "3033:3033"
     volumes:
       - ./:/app
-      - /path/to/your/local/ssl/directory:/etc/ssl/private
+      - /etc/ssl/private/private.key:/etc/ssl/private/private.key
+      - /etc/ssl/certs/certificate.crt:/etc/ssl/certs/certificate.crt
     depends_on:
       - redis
     networks:
