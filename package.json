@@ -4,8 +4,8 @@
   "description": "API for Stratum exchange",
   "main": "index.js",
   "scripts": {
-    "start": "node api.solidly.js",
-    "dev": "nodemon api.solidly.js"
+    "start": "node api.stratum.js",
+    "dev": "nodemon api.stratum.js"
   },
   "authors": [
     "cmuelder@crowdswap.org"

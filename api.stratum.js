@@ -160,7 +160,7 @@ if (process.env.NODE_ENV === 'development') {
   console.error("Error: API-Environment not configured.")
 }
 server.listen(app.get("port"), async function () {
-  console.log("api.solidly.exchange", server.address().port);
+  console.log("api.stratum.exchange", server.address().port);
   module.exports = server;
 
   // once called when server started
