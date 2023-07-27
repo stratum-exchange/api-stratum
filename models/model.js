@@ -613,13 +613,16 @@ const model = {
                 .call();
               console.log("WBA:", gaugeAddress, wrappedBribeAddress);
               if ([ZERO_ADDRESS, ""].includes(wrappedBribeAddress)) {
-                await model.createWrappedBribe(
-                  externalBribeAddress,
-                  no_wrapped_bribe_Counter
+                throw Error(
+                  "Internal error: wxBribe should always be initialized!"
                 );
-                wrappedBribeAddress = await wrappedBribeFactoryContract.methods
-                  .oldBribeToNew(externalBribeAddress)
-                  .call();
+                // await model.createWrappedBribe(
+                //   externalBribeAddress,
+                //   no_wrapped_bribe_Counter
+                // );
+                // wrappedBribeAddress = await wrappedBribeFactoryContract.methods
+                //   .oldBribeToNew(externalBribeAddress)
+                //   .call();
               }
 
               //add when gauge is created! see below
@@ -885,59 +888,59 @@ const model = {
     no_wrapped_bribe_Counter++;
     return newNonce;
   },
-  async createWrappedBribe(bribe_address, idx) {
-    console.log("create wrapped bribe");
-    const web3 = new Web3(config.web3.provider);
-    const account = web3.eth.accounts.privateKeyToAccount(config.PRIVATE_KEY);
-    // console.log("Account for wrapped bribe creation:", account);
-    const wrapped_bribe_factory_contract = new web3.eth.Contract(
-      CONTRACTS.WRAPPED_BRIBE_ABI,
-      CONTRACTS.WRAPPED_BRIBE_FACTORY_ADDRESS
-    );
-    const nonce = await web3.eth.getTransactionCount(account.address);
-    const newNonce = await model.incrementNonce(nonce);
+  // async createWrappedBribe(bribe_address, idx) {
+  //   console.log("create wrapped bribe");
+  //   const web3 = new Web3(config.web3.provider);
+  //   const account = web3.eth.accounts.privateKeyToAccount(config.PRIVATE_KEY);
+  //   // console.log("Account for wrapped bribe creation:", account);
+  //   const wrapped_bribe_factory_contract = new web3.eth.Contract(
+  //     CONTRACTS.WRAPPED_BRIBE_ABI,
+  //     CONTRACTS.WRAPPED_BRIBE_FACTORY_ADDRESS
+  //   );
+  //   const nonce = await web3.eth.getTransactionCount(account.address);
+  //   const newNonce = await model.incrementNonce(nonce);
 
-    const checksum_address = web3.utils.toChecksumAddress(bribe_address);
-    const create_bribe_txn = wrapped_bribe_factory_contract.methods
-      .createBribe(checksum_address)
-      .encodeABI();
+  //   const checksum_address = web3.utils.toChecksumAddress(bribe_address);
+  //   const create_bribe_txn = wrapped_bribe_factory_contract.methods
+  //     .createBribe(checksum_address)
+  //     .encodeABI();
 
-    // const gasPrice = await web3.eth.getGasPrice();
-    // const gasLimit = await wrapped_bribe_factory_contract.methods
-    //   .createBribe(checksum_address)
-    //   .estimateGas();
+  //   // const gasPrice = await web3.eth.getGasPrice();
+  //   // const gasLimit = await wrapped_bribe_factory_contract.methods
+  //   //   .createBribe(checksum_address)
+  //   //   .estimateGas();
 
-    const txParams = {
-      // type: "0x0",
-      to: CONTRACTS.WRAPPED_BRIBE_FACTORY_ADDRESS,
-      data: create_bribe_txn,
-      gas: 90000000,
-      gasPrice: 250000000,
-      nonce: newNonce, //nonce + idx,
-      chainId: config.chainId,
-    };
+  //   const txParams = {
+  //     // type: "0x0",
+  //     to: CONTRACTS.WRAPPED_BRIBE_FACTORY_ADDRESS,
+  //     data: create_bribe_txn,
+  //     gas: 90000000,
+  //     gasPrice: 250000000,
+  //     nonce: newNonce, //nonce + idx,
+  //     chainId: config.chainId,
+  //   };
 
-    const signedTx = await web3.eth.accounts.signTransaction(
-      txParams,
-      config.PRIVATE_KEY
-    );
+  //   const signedTx = await web3.eth.accounts.signTransaction(
+  //     txParams,
+  //     config.PRIVATE_KEY
+  //   );
 
-    console.log(bribe_address, txParams, nonce, idx);
-    web3.eth
-      .sendSignedTransaction(signedTx.rawTransaction)
-      .on("transactionHash", function (txHash) {
-        console.log(txHash);
-      })
-      .on("receipt", function (receipt) {
-        console.log(receipt);
-      })
-      .on("error", function (error) {
-        console.error(error);
-      });
-    console.log("sentTx");
+  //   console.log(bribe_address, txParams, nonce, idx);
+  //   web3.eth
+  //     .sendSignedTransaction(signedTx.rawTransaction)
+  //     .on("transactionHash", function (txHash) {
+  //       console.log(txHash);
+  //     })
+  //     .on("receipt", function (receipt) {
+  //       console.log(receipt);
+  //     })
+  //     .on("error", function (error) {
+  //       console.error(error);
+  //     });
+  //   console.log("sentTx");
 
-    // LOGGER.info("Created tx:", sentTx.transactionHash);
-  },
+  //   // LOGGER.info("Created tx:", sentTx.transactionHash);
+  // },
   async fetchExternalRewards(web3, multicall, gauge) {
     // console.log("fetchExternalRewards");
     const wrappedBribeContract = new web3.eth.Contract(

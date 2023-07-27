@@ -144,11 +144,11 @@ app.use(function (err, req, res) {
   }
 });
 
-// var options = {};
-var options = {
-  key: fs.readFileSync('/etc/ssl/private/private.key'),
-  cert: fs.readFileSync('/etc/ssl/certs/certificate.crt'),
-};
+var options = {};
+// var options = {
+//   key: fs.readFileSync('/etc/ssl/private/private.key'),
+//   cert: fs.readFileSync('/etc/ssl/certs/certificate.crt'),
+// };
 
 https.globalAgent.maxSockets = 50;
 app.set("port", 3033);
