@@ -5,7 +5,6 @@ const config = {
   testnet: process.env.TESTNET,
   chainId: process.env.CHAINID,
   chain: process.env.CHAIN,
-  PRIVATE_KEY: process.env.PRIVATE_KEY,
 
   web3: {
     provider: process.env.PROVIDER,
