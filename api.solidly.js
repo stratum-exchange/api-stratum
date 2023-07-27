@@ -144,17 +144,21 @@ app.use(function (err, req, res) {
   }
 });
 
-// var options = {};
-var options = {
-  key: fs.readFileSync('/etc/ssl/private/private.key'),
-  cert: fs.readFileSync('/etc/ssl/certs/certificate.crt'),
-};
-
+var options = {};
 https.globalAgent.maxSockets = 50;
 app.set("port", 3033);
 var server = null;
-// server = require("http").Server(app);
-server = require('https').createServer(options, app);
+if (process.env.NODE_ENV === 'development') {
+  server = require("http").Server(app);
+} else if (process.env.NODE_ENV === 'test' || process.env.NODE_ENV === 'production') {
+  var options = {
+    key: fs.readFileSync('/etc/ssl/private/private.key'),
+    cert: fs.readFileSync('/etc/ssl/certs/certificate.crt'),
+  };
+  server = require('https').createServer(options, app);
+} else {
+  console.error("Error: API-Environment not configured.")
+}
 server.listen(app.get("port"), async function () {
   console.log("api.solidly.exchange", server.address().port);
   module.exports = server;
