@@ -51,5 +51,16 @@
     "logoURI": "https://stratumexchange.com/favicon.png",
     "liquid_staked_address": "",
     "tags": ["volatilecoin"]
+  },
+  {
+    "chainId": 280,
+    "name": "Wrapped Mantle",
+    "symbol": "WMNT",
+    "address": "0xdEAddEaDdeadDEadDEADDEAddEADDEAddead1111",
+    "decimals": 18,
+    "logoURI": "https://stratumexchange.com/favicon.png",
+    "liquid_staked_address": "",
+    "tags": ["volatilecoin"]
   }
 ]
+
