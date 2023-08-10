@@ -79,7 +79,9 @@ const model = {
     const type = req.params.type;
     const url = config.files[type];
     if (url !== undefined) {
-      const response = await axios.get(url);
+      //add request timestamp to always get am updated version of the file
+      const v = `v=${new Date().getMilliseconds}`;
+      const response = await axios.get(`${url}?${v}`);
       if (
         jsonStore[type] === null ||
         jsonStore[type] === undefined ||
