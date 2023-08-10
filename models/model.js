@@ -81,9 +81,18 @@ const model = {
     if (url !== undefined) {
       const response = await axios.get(url);
       if (
-        response.headers["content-length"] !== jsonStore[type].size ||
-        jsonStore[type].data === null
+        jsonStore[type] === null ||
+        jsonStore[type] === undefined ||
+        jsonStore[type].data === null ||
+        jsonStore[type].size === null
       ) {
+        console.log(
+          `Update server data [ ${response.headers["content-length"]}]`
+        );
+        jsonStore[type] = {};
+        jsonStore[type].data = response.data;
+        jsonStore[type].size = response.headers["content-length"];
+      } else if (response.headers["content-length"] !== jsonStore[type].size) {
         console.log(
           `Update server data [${jsonStore[type].size}, ${response.headers["content-length"]}]`
         );
