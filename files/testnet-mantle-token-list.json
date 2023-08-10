@@ -1,0 +1,102 @@
+[
+  {
+    "chainId": 5001,
+    "name": "USD Coin",
+    "symbol": "USDC",
+    "address": "0xbAF72402f98f16e77638Ce5FCC5689CD1627E8ff",
+    "decimals": 6,
+    "logoURI": "https://assets.coingecko.com/coins/images/6319/large/USD_Coin_icon.png",
+    "liquid_staked_address": "",
+    "tags": ["stablecoin"]
+  },
+  {
+    "chainId": 5001,
+    "name": "Stratum",
+    "symbol": "STRAT",
+    "address": "0x8383bfd2744aFa47B43b65FAC5A67589b02d1368",
+    "decimals": 18,
+    "logoURI": "/tokens/coin_strat_white.png",
+    "liquid_staked_address": "",
+    "tags": ["volatilecoin"]
+  },
+  {
+    "chainId": 5001,
+    "name": "FunToken",
+    "symbol": "FUN",
+    "address": "0xc90fb0c202e57f3bBDDE17192Ba6C17f58ad7239",
+    "decimals": 18,
+    "logoURI": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGMuAsIJaimGE7Tof1LY2eBfuRwtbesbD29w&usqp=CAU",
+    "liquid_staked_address": "",
+    "tags": ["volatilecoin"]
+  },
+  {
+    "chainId": 5001,
+    "name": "Zzzleepy",
+    "symbol": "ZZZ",
+    "address": "0x2F87cA0EA6DCd4AC47b5Fe560D65269cfE3f61eE",
+    "decimals": 18,
+    "logoURI": "https://cdn-icons-png.flaticon.com/512/472/472529.png",
+    "liquid_staked_address": "",
+    "tags": ["volatilecoin"]
+  },
+  {
+    "chainId": 5001,
+    "name": "Kek",
+    "symbol": "KEK",
+    "address": "0xaDdbDF0f14B37441E2DD8332D3C3579727f87bed",
+    "decimals": 18,
+    "logoURI": "https://w7.pngwing.com/pngs/926/505/png-transparent-cupcake-computer-icons-cake-pop-cupcake-icon-food-cake-artwork-thumbnail.png",
+    "liquid_staked_address": "",
+    "tags": ["volatilecoin"]
+  },
+  {
+    "chainId": 280,
+    "name": "Wrapped Mantle",
+    "symbol": "WMNT",
+    "address": "0x13a668e34A0c8D81C6502c3d999D83f6c7C026c8",
+    "decimals": 18,
+    "logoURI": "https://assets.coingecko.com/coins/images/30980/small/token-logo.png?1689320029",
+    "liquid_staked_address": "",
+    "tags": ["volatilecoin"]
+  },
+  {
+    "chainId": 5001,
+    "name": "Wrapped ETH",
+    "symbol": "WETH",
+    "address": "0x13a668e34A0c8D81C6502c3d999D83f6c7C026c8",
+    "decimals": 18,
+    "logoURI": "/tokens/weth.png",
+    "liquid_staked_address": "",
+    "tags": ["volatilecoin"]
+  },
+  {
+    "chainId": 5001,
+    "name": "UST",
+    "symbol": "UST",
+    "address": "0x9B166fE65850c8BAF622512ce8A1B20E9a6B0F29",
+    "decimals": 18,
+    "logoURI": "https://assets.coingecko.com/coins/images/12681/large/UST.png",
+    "liquid_staked_address": "",
+    "tags": ["stablecoin"]
+  },
+  {
+    "chainId": 5001,
+    "name": "LUSD",
+    "symbol": "LUSD",
+    "address": "0x17B71a0389F9Cbf09f8707DAeA876BaE4B9831bD",
+    "decimals": 18,
+    "logoURI": "https://assets.coingecko.com/coins/images/14666/large/Group_3.png",
+    "liquid_staked_address": "",
+    "tags": ["stablecoin"]
+  },
+  {
+    "chainId": 5001,
+    "name": "DAI",
+    "symbol": "DAI",
+    "address": "0x3E2f36f7A57A4C713BA6616eDb251DfB421E19D1",
+    "decimals": 18,
+    "logoURI": "https://assets.coingecko.com/coins/images/9956/large/Badge_Dai.png",
+    "liquid_staked_address": "",
+    "tags": ["stablecoin"]
+  }
+]
