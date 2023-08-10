@@ -22,6 +22,7 @@ const config = {
   routeAssets: [],
   files: {
     airdrop: process.env.AIRDROP_URL,
+    tokenlists: process.env.TOKENLISTS_URL,
   },
 };
 
