@@ -15,7 +15,7 @@
     "symbol": "STRAT",
     "address": "0x8383bfd2744aFa47B43b65FAC5A67589b02d1368",
     "decimals": 18,
-    "logoURI": "/tokens/coin_strat_white.png",
+    "logoURI": "/tokens/coin_strat.png",
     "liquid_staked_address": "",
     "tags": ["volatilecoin"]
   },
