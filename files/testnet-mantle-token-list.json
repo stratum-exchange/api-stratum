@@ -13,7 +13,7 @@
     "chainId": 5001,
     "name": "Stratum",
     "symbol": "STRAT",
-    "address": "0x334CEE9c2A3d370C72de7856C565B9f4f9e25d63",
+    "address": "0x9a220B3Dd45a17dAEE7c6F7e6e1c8E55f31b17de",
     "decimals": 18,
     "logoURI": "/tokens/coin_strat.png",
     "liquid_staked_address": "",
