@@ -3,7 +3,7 @@
     "chainId": 5001,
     "name": "USD Coin",
     "symbol": "USDC",
-    "address": "0xbAF72402f98f16e77638Ce5FCC5689CD1627E8ff",
+    "address": "0x98e36f61caAc6851D4CEf3A71F4F929FBC9cBcA3",
     "decimals": 6,
     "logoURI": "https://assets.coingecko.com/coins/images/6319/large/USD_Coin_icon.png",
     "liquid_staked_address": "",
