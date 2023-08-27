@@ -75,8 +75,7 @@ const model = {
       return next(null, req, res, next);
     }
   },
-  async fileserver(req, res, next) {
-    const type = req.params.type;
+  async _fileserverLocalAccess(type) {
     const url = config.files[type];
     if (url !== undefined) {
       //add request timestamp to always get am updated version of the file
@@ -101,46 +100,81 @@ const model = {
         jsonStore[type].data = response.data;
         jsonStore[type].size = response.headers["content-length"];
       }
+    }
+  },
+  async fileserver(req, res, next) {
+    const type = req.params.type;
+
+    try {
+      await model._fileserverLocalAccess(type);
+      // //add request timestamp to always get am updated version of the file
+      // const v = `v=${new Date().getMilliseconds}`;
+      // const response = await axios.get(`${url}?${v}`);
+      // if (
+      //   jsonStore[type] === null ||
+      //   jsonStore[type] === undefined ||
+      //   jsonStore[type].data === null ||
+      //   jsonStore[type].size === null
+      // ) {
+      //   console.log(
+      //     `Update server data [ ${response.headers["content-length"]}]`
+      //   );
+      //   jsonStore[type] = {};
+      //   jsonStore[type].data = response.data;
+      //   jsonStore[type].size = response.headers["content-length"];
+      // } else if (response.headers["content-length"] !== jsonStore[type].size) {
+      //   console.log(
+      //     `Update server data [${jsonStore[type].size}, ${response.headers["content-length"]}]`
+      //   );
+      //   jsonStore[type].data = response.data;
+      //   jsonStore[type].size = response.headers["content-length"];
+      // }
       res.status(201);
       res.body = { status: 201, success: true, data: jsonStore[type].data };
       return next(null, req, res, next);
+    } catch (error) {
+      res.status(500);
+      res.body = { status: 500, success: false };
+      return next(null, req, res, next);
     }
-    res.status(500);
-    res.body = { status: 500, success: false };
-    return next(null, req, res, next);
   },
 
   async updateAssets(req, res, next) {
     try {
-      if (config.testnet === "1") {
-        let rawdata = fs.readFileSync(tokenlistpath);
-        let tokenList = JSON.parse(rawdata);
-        // console.log(tokenList);
-        const RC = await redisHelper.connect();
-        const d = await RC.set("baseAssets", JSON.stringify(tokenList));
+      // if (config.testnet === "1") {
+      const type = "tokenlists";
+      await model._fileserverLocalAccess(type);
+      const jsonData = jsonStore[type];
+      console.log("jsontokenlists >>", jsonStore[type]);
+      // let rawdata = fs.readFileSync(tokenlistpath);
+      let tokenList = jsonData.data;
+      // console.log(tokenList);
+      const RC = await redisHelper.connect();
+      const d = await RC.set("baseAssets", JSON.stringify(tokenList));
+      console.log("RC >>", d);
+      res.status(205);
+      res.body = { status: 200, success: true, data: tokenList };
+      return next(null, req, res, next);
+      //FIXME: check on mainnet if anything break, but prices are gathered from FE, too.
+      // } else {
+      //   let rawdata = fs.readFileSync("token-list.json");
+      //   let tokenList = JSON.parse(rawdata);
 
-        res.status(205);
-        res.body = { status: 200, success: true, data: tokenList };
-        return next(null, req, res, next);
-      } else {
-        let rawdata = fs.readFileSync("token-list.json");
-        let tokenList = JSON.parse(rawdata);
+      //   const RC = await redisHelper.connect();
 
-        const RC = await redisHelper.connect();
+      //   const reply = await RC.get("pairs");
+      //   const pairs = JSON.parse(reply);
+      //   const tokenListWithBalances = await model._getAssetPrices(
+      //     tokenList,
+      //     pairs
+      //   );
 
-        const reply = await RC.get("pairs");
-        const pairs = JSON.parse(reply);
-        const tokenListWithBalances = await model._getAssetPrices(
-          tokenList,
-          pairs
-        );
+      //   const d = await RC.set("baseAssets", JSON.stringify(tokenList));
 
-        const d = await RC.set("baseAssets", JSON.stringify(tokenList));
-
-        res.status(205);
-        res.body = { status: 200, success: true, data: tokenList };
-        return next(null, req, res, next);
-      }
+      //   res.status(205);
+      //   res.body = { status: 200, success: true, data: tokenList };
+      //   return next(null, req, res, next);
+      // }
     } catch (ex) {
       // console.log("here3");
       console.error(ex);
