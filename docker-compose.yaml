@@ -28,7 +28,6 @@ services:
       - .env
     environment:
       REDIS_HOST: redis
-    user: stratum
 
 networks:
   backend:
