@@ -17,7 +17,8 @@ COPY . .
 EXPOSE 3033
 
 # Create a user named stratum and set ownership
-RUN adduser --disabled-password --gecos '' stratum && \
+RUN addgroup --gid 112 stratum && \
+    adduser --uid 1000 --gid 112 --disabled-password --gecos '' stratum && \
     chown -R stratum:stratum /app
 
 # Use the user named stratum
