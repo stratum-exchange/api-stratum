@@ -16,5 +16,12 @@ COPY . .
 # Expose port 3033
 EXPOSE 3033
 
+# Create a user named stratum and set ownership
+RUN adduser --disabled-password --gecos '' stratum && \
+    chown -R stratum:stratum /app
+
+# Use the user named stratum
+USER stratum
+
 # Start the app when the container is run
 CMD ["npm", "run", "start"]
