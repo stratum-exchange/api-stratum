@@ -28,6 +28,7 @@ services:
       - .env
     environment:
       REDIS_HOST: redis
+    user: "node:docker"
 
 networks:
   backend:
