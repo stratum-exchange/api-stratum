@@ -58,5 +58,35 @@
     "logoURI": "https://assets.coingecko.com/coins/images/9956/large/Badge_Dai.png",
     "liquid_staked_address": "",
     "tags": ["stablecoin"]
+  },
+  {
+    "chainId": 5001,
+    "name": "wstETH",
+    "symbol": "wstETH",
+    "address": "0xc61554e0cC0653F189699c459847dD8b4b72ff4A",
+    "decimals": 18,
+    "logoURI": "https://assets.coingecko.com/coins/images/18834/small/wstETH.png",
+    "liquid_staked_address": "",
+    "tags": ["volatilecoin"]
+  },
+  {
+    "chainId": 5001,
+    "name": "rETH",
+    "symbol": "rETH",
+    "address": "0x24c98095EE7a171c15CD2FF68ddE84cD92619012",
+    "decimals": 18,
+    "logoURI": "https://assets.coingecko.com/coins/images/20764/small/reth.png",
+    "liquid_staked_address": "",
+    "tags": ["volatilecoin"]
+  },
+  {
+    "chainId": 5001,
+    "name": "frxETH",
+    "symbol": "frxETH",
+    "address": "0xe2e7373003950608335cd2686024877fC16fb6f4",
+    "decimals": 18,
+    "logoURI": "https://assets.coingecko.com/coins/images/28284/small/frxETH_icon.png",
+    "liquid_staked_address": "",
+    "tags": ["volatilecoin"]
   }
 ]
