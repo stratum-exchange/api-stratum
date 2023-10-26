@@ -18,8 +18,8 @@ services:
       - "3033:3033"
     volumes:
       - ./:/app
-      - ${SSL_KEY_PATH}:/etc/ssl/private/private.key
-      - ${SSL_CERT_PATH}:/etc/ssl/certs/certificate.crt
+      - ${SSL_KEY_PATH}:/etc/letsencrypt/live/app-dev.stratumexchange.com/privkey.pem
+      - ${SSL_CERT_PATH}:/etc/letsencrypt/live/app-dev.stratumexchange.com/fullchain.pem
     depends_on:
       - redis
     networks:
