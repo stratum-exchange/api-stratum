@@ -444,19 +444,30 @@ const model = {
       const web3 = new Web3(
         new Web3.providers.HttpProvider(config.web3.provider)
       );
+      console.log(">>>>>>>>>>>>>> web3")
+      console.log(web3)
+
       const multicall = new Multicall({
         multicallAddress: CONTRACTS.MULTICALL_ADDRESS,
         provider: web3,
       });
+      console.log(">>>>>>>>>>>>>> multicall")
+      console.log(multicall)
 
       const factoryContract = new web3.eth.Contract(
         CONTRACTS.FACTORY_ABI,
         CONTRACTS.FACTORY_ADDRESS
       );
+      console.log(">>>>>>>>>>>>>> factoryContract")
+      console.log(factoryContract)
+
       const gaugesContract = new web3.eth.Contract(
         CONTRACTS.GAUGES_ABI,
         CONTRACTS.GAUGES_ADDRESS
       );
+      console.log(">>>>>>>>>>>>>> gaugesContract")
+      console.log(gaugesContract)
+
       console.log(
         "FACTORY:",
         CONTRACTS.FACTORY_ADDRESS,
