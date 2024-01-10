@@ -378,11 +378,11 @@ const model = {
           (pair.token0.address.toLowerCase() ==
             config.wmtr.address.toLowerCase() ||
             pair.token1.address.toLowerCase() ==
-              config.wmtr.address.toLowerCase() ||
+            config.wmtr.address.toLowerCase() ||
             pair.token0.address.toLowerCase() ==
-              config.usdc.address.toLowerCase() ||
+            config.usdc.address.toLowerCase() ||
             pair.token1.address.toLowerCase() ==
-              config.usdc.address.toLowerCase())
+            config.usdc.address.toLowerCase())
         );
       });
 
@@ -761,23 +761,23 @@ const model = {
               reserve0:
                 thePair.totalSupply > 0
                   ? BigNumber(thePair.reserve0)
-                      .times(gaugeTotalSupply)
-                      .div(thePair.totalSupply)
-                      .toFixed(thePair.token0.decimals)
+                    .times(gaugeTotalSupply)
+                    .div(thePair.totalSupply)
+                    .toFixed(thePair.token0.decimals)
                   : "0",
               reserve1:
                 thePair.totalSupply > 0
                   ? BigNumber(thePair.reserve1)
-                      .times(gaugeTotalSupply)
-                      .div(thePair.totalSupply)
-                      .toFixed(thePair.token1.decimals)
+                    .times(gaugeTotalSupply)
+                    .div(thePair.totalSupply)
+                    .toFixed(thePair.token1.decimals)
                   : "0",
               reserve2:
                 thePair.totalSupply > 0 && thePair.token2
                   ? BigNumber(thePair.reserve2)
-                      .times(gaugeTotalSupply)
-                      .div(thePair.totalSupply)
-                      .toFixed(thePair.token2.decimals)
+                    .times(gaugeTotalSupply)
+                    .div(thePair.totalSupply)
+                    .toFixed(thePair.token2.decimals)
                   : "0",
               weight: BigNumber(gaugeWeight)
                 .div(10 ** 18)

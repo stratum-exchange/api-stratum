@@ -19,3 +19,5 @@ gulpfile.js
 package-lock.json
 constants/zksync/contractsTestnet.2pool.js
 files/testnet-mantle-token-list copy.json
+
+.vscode
