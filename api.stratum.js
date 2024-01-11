@@ -166,8 +166,8 @@ server.listen(app.get("port"), async function () {
   // once called when server started
   await updateAssetsMiddleware()
   console.log("Assets updated")
-  // await updatePairsMiddleware()
-  // console.log("Pairs updated")
+  await updatePairsMiddleware()
+  console.log("Pairs updated")
 });
 
 Array.prototype.contains = function (obj) {
