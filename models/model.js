@@ -476,8 +476,6 @@ const model = {
       const ps = await Promise.all(
         arr.map(async (idx) => {
 
-          console.log(">>>>>>>>>>>> ", idx)
-
           const pairAddress = await factoryContract.methods
             .allPairs(idx)
             .call();
