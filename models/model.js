@@ -445,6 +445,8 @@ const model = {
         new Web3.providers.HttpProvider(config.web3.provider)
       );
 
+      console.log("####################### PROVIDER -> ", web3.provider)
+
       const multicall = new Multicall({
         multicallAddress: CONTRACTS.MULTICALL_ADDRESS,
         provider: web3,
