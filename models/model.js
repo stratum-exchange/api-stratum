@@ -444,8 +444,6 @@ const model = {
       const web3 = new Web3(
         new Web3.providers.HttpProvider(config.web3.provider)
       );
-      console.log(">>>>>>>>>>>>>> web3")
-      console.log(web3)
 
       const multicall = new Multicall({
         multicallAddress: CONTRACTS.MULTICALL_ADDRESS,
@@ -473,13 +471,13 @@ const model = {
         gaugesContract.methods.totalWeight().call(),
       ]);
 
-      console.log(">>>>>>>>>> allPairsLength: ", allPairsLength)
-      console.log(">>>>>>>>>> totalWeight: ", totalWeight)
-
       const arr = Array.from({ length: parseInt(allPairsLength) }, (v, i) => i);
 
       const ps = await Promise.all(
         arr.map(async (idx) => {
+
+          console.log(">>>>>>>>>>>> ", idx)
+
           const pairAddress = await factoryContract.methods
             .allPairs(idx)
             .call();
