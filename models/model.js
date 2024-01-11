@@ -451,22 +451,16 @@ const model = {
         multicallAddress: CONTRACTS.MULTICALL_ADDRESS,
         provider: web3,
       });
-      console.log(">>>>>>>>>>>>>> multicall")
-      console.log(multicall)
-
+      
       const factoryContract = new web3.eth.Contract(
         CONTRACTS.FACTORY_ABI,
         CONTRACTS.FACTORY_ADDRESS
       );
-      console.log(">>>>>>>>>>>>>> factoryContract")
-      console.log(factoryContract)
 
       const gaugesContract = new web3.eth.Contract(
         CONTRACTS.GAUGES_ABI,
         CONTRACTS.GAUGES_ADDRESS
       );
-      console.log(">>>>>>>>>>>>>> gaugesContract")
-      console.log(gaugesContract)
 
       console.log(
         "FACTORY:",
@@ -478,6 +472,9 @@ const model = {
         factoryContract.methods.allPairsLength().call(),
         gaugesContract.methods.totalWeight().call(),
       ]);
+
+      console.log(">>>>>>>>>> allPairsLength: ", allPairsLength)
+      console.log(">>>>>>>>>> totalWeight: ", totalWeight)
 
       const arr = Array.from({ length: parseInt(allPairsLength) }, (v, i) => i);
 
