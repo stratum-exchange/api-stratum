@@ -1,6 +1,6 @@
 [
   {
-    "chainId": 5001,
+    "chainId": 5000,
     "name": "USD Coin",
     "symbol": "USDC",
     "address": "0x09Bc4E0D864854c6aFB6eB9A9cdF58aC190D0dF9",
@@ -10,7 +10,7 @@
     "tags": ["stablecoin"]
   },
   {
-    "chainId": 5001,
+    "chainId": 5000,
     "name": "teStratum",
     "symbol": "TESTRAT",
     "address": "0x1eDe4AE9421829f0ADa9a136aA17Da79E53818cF",
