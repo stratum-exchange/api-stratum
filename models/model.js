@@ -378,11 +378,11 @@ const model = {
           (pair.token0.address.toLowerCase() ==
             config.wmtr.address.toLowerCase() ||
             pair.token1.address.toLowerCase() ==
-              config.wmtr.address.toLowerCase() ||
+            config.wmtr.address.toLowerCase() ||
             pair.token0.address.toLowerCase() ==
-              config.usdc.address.toLowerCase() ||
+            config.usdc.address.toLowerCase() ||
             pair.token1.address.toLowerCase() ==
-              config.usdc.address.toLowerCase())
+            config.usdc.address.toLowerCase())
         );
       });
 
@@ -444,19 +444,22 @@ const model = {
       const web3 = new Web3(
         new Web3.providers.HttpProvider(config.web3.provider)
       );
+
       const multicall = new Multicall({
         multicallAddress: CONTRACTS.MULTICALL_ADDRESS,
         provider: web3,
       });
-
+      
       const factoryContract = new web3.eth.Contract(
         CONTRACTS.FACTORY_ABI,
         CONTRACTS.FACTORY_ADDRESS
       );
+
       const gaugesContract = new web3.eth.Contract(
         CONTRACTS.GAUGES_ABI,
         CONTRACTS.GAUGES_ADDRESS
       );
+
       console.log(
         "FACTORY:",
         CONTRACTS.FACTORY_ADDRESS,
@@ -472,6 +475,7 @@ const model = {
 
       const ps = await Promise.all(
         arr.map(async (idx) => {
+
           const pairAddress = await factoryContract.methods
             .allPairs(idx)
             .call();
@@ -761,23 +765,23 @@ const model = {
               reserve0:
                 thePair.totalSupply > 0
                   ? BigNumber(thePair.reserve0)
-                      .times(gaugeTotalSupply)
-                      .div(thePair.totalSupply)
-                      .toFixed(thePair.token0.decimals)
+                    .times(gaugeTotalSupply)
+                    .div(thePair.totalSupply)
+                    .toFixed(thePair.token0.decimals)
                   : "0",
               reserve1:
                 thePair.totalSupply > 0
                   ? BigNumber(thePair.reserve1)
-                      .times(gaugeTotalSupply)
-                      .div(thePair.totalSupply)
-                      .toFixed(thePair.token1.decimals)
+                    .times(gaugeTotalSupply)
+                    .div(thePair.totalSupply)
+                    .toFixed(thePair.token1.decimals)
                   : "0",
               reserve2:
                 thePair.totalSupply > 0 && thePair.token2
                   ? BigNumber(thePair.reserve2)
-                      .times(gaugeTotalSupply)
-                      .div(thePair.totalSupply)
-                      .toFixed(thePair.token2.decimals)
+                    .times(gaugeTotalSupply)
+                    .div(thePair.totalSupply)
+                    .toFixed(thePair.token2.decimals)
                   : "0",
               weight: BigNumber(gaugeWeight)
                 .div(10 ** 18)

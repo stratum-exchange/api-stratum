@@ -152,8 +152,8 @@ if (process.env.NODE_ENV === 'development') {
   server = require("http").Server(app);
 } else if (process.env.NODE_ENV === 'test' || process.env.NODE_ENV === 'production') {
   var options = {
-    key: fs.readFileSync('/etc/ssl/private/private.key'),
-    cert: fs.readFileSync('/etc/ssl/certs/certificate.crt'),
+    key: fs.readFileSync('/etc/letsencrypt/live/app-dev.stratumexchange.com/privkey.pem'),
+    cert: fs.readFileSync('/etc/letsencrypt/live/app-dev.stratumexchange.com/fullchain.pem'),
   };
   server = require('https').createServer(options, app);
 } else {
