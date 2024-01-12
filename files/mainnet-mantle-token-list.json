@@ -1,0 +1,72 @@
+[
+  {
+    "chainId": 5000,
+    "name": "USD Coin",
+    "symbol": "USDC",
+    "address": "0x09Bc4E0D864854c6aFB6eB9A9cdF58aC190D0dF9",
+    "decimals": 6,
+    "logoURI": "https://assets.coingecko.com/coins/images/6319/large/USD_Coin_icon.png",
+    "liquid_staked_address": "",
+    "tags": ["stablecoin"]
+  },
+  {
+    "chainId": 5000,
+    "name": "Stratum",
+    "symbol": "STRAT",
+    "address": "0x5a093a9c4f440c6b105F0AF7f7C4f1fBE45567f9",
+    "decimals": 18,
+    "logoURI": "/tokens/coin_strat.png",
+    "liquid_staked_address": "",
+    "tags": ["volatilecoin"]
+  },
+  {
+    "chainId": 5000,
+    "name": "Wrapped Mantle",
+    "symbol": "WMNT",
+    "address": "0x78c1b0C915c4FAA5FffA6CAbf0219DA63d7f4cb8",
+    "decimals": 8,
+    "logoURI": "https://assets.coingecko.com/coins/images/30980/large/token-logo.png?1689320029",
+    "liquid_staked_address": "",
+    "tags": ["volatilecoin"]
+  },
+  {
+    "chainId": 5000,
+    "name": "LUSD",
+    "symbol": "LUSD",
+    "address": "0xf93a85d53e4aF0D62bdf3A83CCFc1EcF3EAf9F32",
+    "decimals": 18,
+    "logoURI": "https://assets.coingecko.com/coins/images/14666/large/Group_3.png",
+    "liquid_staked_address": "",
+    "tags": ["stablecoin"]
+  },
+  {
+    "chainId": 5000,
+    "name": "DAI",
+    "symbol": "DAI",
+    "address": "0xB7b8fCb2589D9413D420386cA47051A19F893A3D",
+    "decimals": 18,
+    "logoURI": "https://assets.coingecko.com/coins/images/9956/large/Badge_Dai.png",
+    "liquid_staked_address": "",
+    "tags": ["stablecoin"]
+  },
+  {
+    "chainId": 5000,
+    "name": "wstETH",
+    "symbol": "wstETH",
+    "address": "0x636d4073738c071326aa70c9e5db7c334beb87be",
+    "decimals": 18,
+    "logoURI": "https://assets.coingecko.com/coins/images/18834/small/wstETH.png",
+    "liquid_staked_address": "",
+    "tags": ["volatilecoin"]
+  },
+  {
+    "chainId": 5000,
+    "name": "rETH",
+    "symbol": "rETH",
+    "address": "0x801EC5B83c501F91A383a6F7FC4109aAE2F2C8fD",
+    "decimals": 18,
+    "logoURI": "https://assets.coingecko.com/coins/images/20764/small/reth.png",
+    "liquid_staked_address": "",
+    "tags": ["volatilecoin"]
+  }
+]
