@@ -1,6 +1,6 @@
 const abis = require("../abis/abis");
 
-const Multicall = "0x167e4eb5E9f30a9b5bEA45bD6A78159b566c788C";
+const Multicall = "0xcA11bde05977b3631167028862bE2a173976CA11";
 const StableToken = "0x0faF6df7054946141266420b43783387A78d82A9";
 
 /****************************************
