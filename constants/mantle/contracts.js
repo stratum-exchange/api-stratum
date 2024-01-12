@@ -1,12 +1,46 @@
 const abis = require("../abis/abis");
 
-module.exports.FACTORY_ADDRESS = "0x5719482Df266cf4558578faE1BF8E89BD37e7403";
+const Multicall = "0x167e4eb5E9f30a9b5bEA45bD6A78159b566c788C";
+const StableToken = "0x0faF6df7054946141266420b43783387A78d82A9";
+
+/****************************************
+ * Only switch between 2pool and 3pool  *
+ ****************************************/
+
+//3pool config
+const ADRS = {
+  WMNT: "0x78c1b0C915c4FAA5FffA6CAbf0219DA63d7f4cb8",
+  Stratum: "0x1eDe4AE9421829f0ADa9a136aA17Da79E53818cF",
+  GaugeFactory: "0x1dcA89Df77c44e681871327A7e3d7BA9C9E2f431",
+  BribeFactory: "0x26c4C14458Aa95d1b33710A1a9d57DFAC46C16fe",
+  PairFactory: "0x7f42c77085D06E6231709Ba9eb1Cd100E71c3cdc",
+  Router: "0xEd659C34f9F65AE7E1EF5b781cD8b51fF0883bB5",
+  VeArtProxy: "0x7883CcD63835e32BBa469A416aFEB93FDf66B512",
+  VotingEscrow: "0xFB8CD04072aa0F3812917CD28045F6101438C1A1",
+  RewardsDistributor: "0x6A295c24Fa648197Cc8766e0cf24CEC7BC1Bd61e",
+  Voter: "0xeE30D063e33c44D328f891CA894DE9573B92beC2",
+  WrappedExternalBribeFactory: "0x951B4aB08Fa289B6b53Fc490d5d9D1807103E820",
+  MetaBribe: "0x576299CDcb12E0488Ffd6ca6D121423112399C66",
+  Minter: "0xD49981c69484B23bB55a88787aa5b7957Cf0Cd50",
+  MerkleClaim: "0x66f2492aa2DB2Bd29eFf1B1774de102af9D38926",
+  UST: "",
+  LUSD: "",
+  DAI: "",
+  USDC: "0x09Bc4E0D864854c6aFB6eB9A9cdF58aC190D0dF9",
+  Swap: "",
+  SwapToken: "",
+};
+// ********************************
+
+// module.exports.FACTORY_ADDRESS = "0x95D0f5bD9BCA1DB2b51Bd463b195c8494c4B640e";
+module.exports.FACTORY_ADDRESS = ADRS.PairFactory;
 module.exports.FACTORY_ABI = abis.factoryABI;
 
-module.exports.ROUTER_ADDRESS = "0xa3F10ED7F404aed9A72d18066A6Cee3FFC34d238";
+// module.exports.ROUTER_ADDRESS = "0x4842264a641289256434251D5804203a342BCAEA";
+module.exports.ROUTER_ADDRESS = ADRS.Router;
 module.exports.ROUTER_ABI = abis.routerABI;
 
-module.exports.GAUGES_ADDRESS = "0xA48345ab8AdDA3277BadF6D9D59D231Da5ca5be2";
+module.exports.GAUGES_ADDRESS = ADRS.Voter;
 module.exports.GAUGES_ABI = abis.gaugesABI;
 
 module.exports.ERC20_ABI = abis.erc20ABI;
@@ -14,43 +48,16 @@ module.exports.PAIR_ABI = abis.pairABI;
 module.exports.GAUGE_ABI = abis.gaugeABI;
 module.exports.BRIBE_ABI = abis.bribeABI;
 module.exports.TOKEN_ABI = abis.tokenABI;
+module.exports.LP_TOKEN_ABI = abis.lpTokenABI;
 
-module.exports.MULTICALL_ADDRESS = "0x20eAD8BE118E0114DAEF69071c3f8E5a25E58456";
+// might change if we have multiple 3pools
+module.exports.POOL3_ROUTER_ADDRESS = ADRS.Swap;
+module.exports.POOL3_ROUTER_ABI = abis.pool3Router;
 
-/*
-zkSync alpha testnet
+module.exports.WRAPPED_BRIBE_FACTORY_ADDRESS = ADRS.WrappedExternalBribeFactory;
+module.exports.WRAPPED_BRIBE_ABI = abis.wrappedBribeABI;
 
-Stratum = 0x687407d7542E2C28f739bB5c4b4f8B3c5930ad99
+// module.exports.MULTICALL_ADDRESS = "0x7D902aa0d30027A8Db3E13C8a8EC95cc3b3E2192";
+module.exports.MULTICALL_ADDRESS = Multicall;
 
-GaugeFactory = 0xA48345ab8AdDA3277BadF6D9D59D231Da5ca5be2
-
-BribeFactory = 0x16aB5fb0E4e639965ffea067eE740a978c6F0EA4
-
-PairFactory = 0x5719482Df266cf4558578faE1BF8E89BD37e7403
-
-Router = 0xa3F10ED7F404aed9A72d18066A6Cee3FFC34d238
-
-Router2 = 0xC4E3D6A752f0A761CfbAE8C5c0f4e34663229D15
-
-Library = 0xF8079D670E95dE65fDEbDcc83488955c452B7A6a
-
-VeArtProxy = 0x00145AD6167751E5446ABD9c3026dd8BFc1FaE2F
-
-VotingEscrow = 0x1E1e9103Fe61AA4a4736F1fF43486c3c8e03E3f3
-
-RewardsDistributor = 0xC18B0CBd46966786B46Bda1CD93A60b8EFda665f
-
-Voter = 0xbCb6C0eACD0a2acD6969913B5321aA5bfDD290a2
-
-WrappedExternalBribeFactory = 0x16603B9f055c9f4e7e4789C82Ef8a0bB9fFDeFF9
-
-Minter = 0x436D2CF62e9102dFF5Dcc2c44d3051d7e3459E2D
-
-StratumGovernor = 0xae756E62Fa43d8e69eD1d5ed86fC42d7FFa8c7Fc
-
-MerkleClaim = 0xef7BEaA682Bb911a0b16902D8fc9F8FB51Cb42E9
-
-WETH = 0x20b28B1e4665FFf290650586ad76E977EAb90c5D
-
-Multicall = 0x20eAD8BE118E0114DAEF69071c3f8E5a25E58456
-*/
+module.exports.STABLE_TOKEN_ADDRESS = StableToken;

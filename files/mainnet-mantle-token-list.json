@@ -1,0 +1,32 @@
+[
+  {
+    "chainId": 5001,
+    "name": "USD Coin",
+    "symbol": "USDC",
+    "address": "0x09Bc4E0D864854c6aFB6eB9A9cdF58aC190D0dF9",
+    "decimals": 18,
+    "logoURI": "https://assets.coingecko.com/coins/images/6319/large/USD_Coin_icon.png",
+    "liquid_staked_address": "",
+    "tags": ["stablecoin"]
+  },
+  {
+    "chainId": 5001,
+    "name": "teStratum",
+    "symbol": "TESTRAT",
+    "address": "0x1eDe4AE9421829f0ADa9a136aA17Da79E53818cF",
+    "decimals": 18,
+    "logoURI": "/tokens/coin_strat.png",
+    "liquid_staked_address": "",
+    "tags": ["volatilecoin"]
+  },
+  {
+    "chainId": 280,
+    "name": "Wrapped Mantle",
+    "symbol": "WMNT",
+    "address": "0x78c1b0C915c4FAA5FffA6CAbf0219DA63d7f4cb8",
+    "decimals": 18,
+    "logoURI": "https://assets.coingecko.com/coins/images/30980/large/token-logo.png?1689320029",
+    "liquid_staked_address": "",
+    "tags": ["volatilecoin"]
+  }
+]
