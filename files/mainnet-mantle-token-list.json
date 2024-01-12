@@ -4,7 +4,7 @@
     "name": "USD Coin",
     "symbol": "USDC",
     "address": "0x09Bc4E0D864854c6aFB6eB9A9cdF58aC190D0dF9",
-    "decimals": 18,
+    "decimals": 6,
     "logoURI": "https://assets.coingecko.com/coins/images/6319/large/USD_Coin_icon.png",
     "liquid_staked_address": "",
     "tags": ["stablecoin"]
