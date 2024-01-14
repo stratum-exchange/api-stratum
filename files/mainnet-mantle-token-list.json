@@ -11,6 +11,16 @@
   },
   {
     "chainId": 5000,
+    "name": "USD Tether",
+    "symbol": "USDT",
+    "address": "  0x201eba5cc46d216ce6dc03f6a759e8e766e956ae",
+    "decimals": 6,
+    "logoURI": "https://assets.coingecko.com/coins/images/325/large/Tether.png?169650166",
+    "liquid_staked_address": "",
+    "tags": ["stablecoin"]
+  },
+  {
+    "chainId": 5000,
     "name": "teStratum",
     "symbol": "TESTRAT",
     "address": "0x1eDe4AE9421829f0ADa9a136aA17Da79E53818cF",
@@ -26,6 +36,16 @@
     "address": "0x78c1b0C915c4FAA5FffA6CAbf0219DA63d7f4cb8",
     "decimals": 18,
     "logoURI": "https://assets.coingecko.com/coins/images/30980/large/token-logo.png?1689320029",
+    "liquid_staked_address": "",
+    "tags": ["volatilecoin"]
+  },
+  {
+    "chainId": 5000,
+    "name": "Wrapped Ethereum",
+    "symbol": "WETH",
+    "address": "0xdEAddEaDdeadDEadDEADDEAddEADDEAddead1111",
+    "decimals": 18,
+    "logoURI": "https://assets.coingecko.com/coins/images/279/large/ethereum.png?169650162",
     "liquid_staked_address": "",
     "tags": ["volatilecoin"]
   }
