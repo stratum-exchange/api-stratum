@@ -23,7 +23,7 @@
     "chainId": 5000,
     "name": "USDY",
     "symbol": "USDY",
-    "address": "0x5be26527e817998a7206475496fde1e68957c5a6",
+    "address": "0x5bE26527e817998A7206475496fDE1E68957c5A6",
     "decimals": 18,
     "logoURI": "https://assets.coingecko.com/coins/images/31700/standard/usdy_%281%29.png?1696530524",
     "liquid_staked_address": "",
