@@ -21,6 +21,16 @@
   },
   {
     "chainId": 5000,
+    "name": "USDY",
+    "symbol": "USDY",
+    "address": "0x5be26527e817998a7206475496fde1e68957c5a6",
+    "decimals": 18,
+    "logoURI": "https://assets.coingecko.com/coins/images/31700/standard/usdy_%281%29.png?1696530524",
+    "liquid_staked_address": "",
+    "tags": ["stablecoin"]
+  },
+  {
+    "chainId": 5000,
     "name": "teStratum",
     "symbol": "TESTRAT",
     "address": "0x1eDe4AE9421829f0ADa9a136aA17Da79E53818cF",
@@ -50,3 +60,5 @@
     "tags": ["volatilecoin"]
   }
 ]
+
+
