@@ -13,7 +13,7 @@
     "chainId": 5000,
     "name": "teStratum",
     "symbol": "TESTRAT",
-    "address": "0x1eDe4AE9421829f0ADa9a136aA17Da79E53818cF",
+    "address": "0x1e1167872542Ce999F5885E9DBA09b6B4B281593",
     "decimals": 18,
     "logoURI": "https://stratumexchange.com/favicon.png",
     "liquid_staked_address": "",
