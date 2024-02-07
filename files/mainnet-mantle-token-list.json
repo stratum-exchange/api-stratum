@@ -31,6 +31,16 @@
   },
   {
     "chainId": 5000,
+    "name": "LUSD",
+    "symbol": "LUSD",
+    "address": "0xf93a85d53e4aF0D62bdf3A83CCFc1EcF3EAf9F32",
+    "decimals": 18,
+    "logoURI": "https://assets.coingecko.com/coins/images/14666/large/Group_3.png?1696514341",
+    "liquid_staked_address": "",
+    "tags": ["stablecoin"]
+  },
+  {
+    "chainId": 5000,
     "name": "teStratum",
     "symbol": "TESTRAT",
     "address": "0x5226C16522C00092418d7C9B83d3283889C19FD9",
@@ -56,6 +66,16 @@
     "address": "0xdEAddEaDdeadDEadDEADDEAddEADDEAddead1111",
     "decimals": 18,
     "logoURI": "https://assets.coingecko.com/coins/images/279/large/ethereum.png?169650162",
+    "liquid_staked_address": "",
+    "tags": ["volatilecoin"]
+  },
+  {
+    "chainId": 5000,
+    "name": "Lendle",
+    "symbol": "LEND",
+    "address": "0x25356aeca4210eF7553140edb9b8026089E49396",
+    "decimals": 18,
+    "logoURI": "https://assets.coingecko.com/coins/images/31588/large/lendle_logo_200_200_cg.png",
     "liquid_staked_address": "",
     "tags": ["volatilecoin"]
   }
