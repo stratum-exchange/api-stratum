@@ -78,6 +78,26 @@
     "logoURI": "https://assets.coingecko.com/coins/images/31588/large/lendle_logo_200_200_cg.png",
     "liquid_staked_address": "",
     "tags": ["volatilecoin"]
+  },
+  {
+    "chainId": 5000,
+    "name": "mETH",
+    "symbol": "mETH",
+    "address": "0xcda86a272531e8640cd7f1a92c01839911b90bb0",
+    "decimals": 18,
+    "logoURI": "https://assets.coingecko.com/coins/images/33345/large/symbol_transparent_bg.png?1701697066",
+    "liquid_staked_address": "",
+    "tags": ["volatilecoin"]
+  },
+  {
+    "chainId": 5000,
+    "name": "wstETH",
+    "symbol": "wstETH",
+    "address": "0x458ed78EB972a369799fb278c0243b25e5242A83",
+    "decimals": 18,
+    "logoURI": "https://assets.coingecko.com/coins/images/18834/large/wstETH.png?1696518295",
+    "liquid_staked_address": "",
+    "tags": ["volatilecoin"]
   }
 ]
 
