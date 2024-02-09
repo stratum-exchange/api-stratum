@@ -98,7 +98,18 @@
     "logoURI": "https://assets.coingecko.com/coins/images/18834/large/wstETH.png?1696518295",
     "liquid_staked_address": "",
     "tags": ["volatilecoin"]
+  },
+  {
+    "chainId": 5000,
+    "name": "mUSD",
+    "symbol": "mUSD",
+    "address": "0xab575258d37EaA5C8956EfABe71F4eE8F6397cF3",
+    "decimals": 18,
+    "logoURI": "https://assets.coingecko.com/coins/images/11576/large/mStable_USD.png?1696511474",
+    "liquid_staked_address": "",
+    "tags": ["volatilecoin"]
   }
 ]
+
 
 
