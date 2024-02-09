@@ -105,7 +105,7 @@
     "symbol": "mUSD",
     "address": "0xab575258d37EaA5C8956EfABe71F4eE8F6397cF3",
     "decimals": 18,
-    "logoURI": "https://file.notion.so/f/f/b1163643-0fbf-425f-99a4-5527c24d2a81/f29e8cc5-08b4-42dc-80d6-74c8b7885024/mUSD-logo-black-bg.svg?id=191afdd9-72bb-4c2b-b49b-77991fffac7f&table=block&spaceId=b1163643-0fbf-425f-99a4-5527c24d2a81&expirationTimestamp=1707583042489&signature=zmqbj_pnFCbIEtrENuvX3HyOFcH34SaM8KlJtilRkIg&downloadName=mUSD-logo-black-bg.svg",
+    "logoURI": "https://file.notion.so/f/f/b1163643-0fbf-425f-99a4-5527c24d2a81/8651ffa9-bb91-4981-9767-acc405048654/mUSD-symbol-white-bg.png?id=07826a06-8c21-4208-b2d9-775325fa9749&table=block&spaceId=b1163643-0fbf-425f-99a4-5527c24d2a81&expirationTimestamp=1707583114804&signature=sOExhLc_vJ1V_1Bwv2VpSt_CcJfakOuyZfLbu7Ht-fo&downloadName=mUSD-symbol-white-bg.png",
     "liquid_staked_address": "",
     "tags": ["volatilecoin"]
   }
