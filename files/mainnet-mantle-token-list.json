@@ -105,7 +105,7 @@
     "symbol": "mUSD",
     "address": "0xab575258d37EaA5C8956EfABe71F4eE8F6397cF3",
     "decimals": 18,
-    "logoURI": "/tokens/mUSD.png",
+    "logoURI": "https://raw.githubusercontent.com/swapsicledex/swapsicle-token-list/master/logos/mantle/0xab575258d37EaA5C8956EfABe71F4eE8F6397cF3/logo.png",
     "liquid_staked_address": "",
     "tags": ["volatilecoin"]
   }
