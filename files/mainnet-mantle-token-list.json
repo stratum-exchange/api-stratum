@@ -108,6 +108,16 @@
     "logoURI": "https://raw.githubusercontent.com/swapsicledex/swapsicle-token-list/master/logos/mantle/0xab575258d37EaA5C8956EfABe71F4eE8F6397cF3/logo.png",
     "liquid_staked_address": "",
     "tags": ["volatilecoin"]
+  },
+  {
+    "chainId": 5000,
+    "name": "IDIA",
+    "symbol": "IDIA",
+    "address": "0x08D1099101De99B14C68975222A235b63e6B8C91",
+    "decimals": 18,
+    "logoURI": "https://assets.coingecko.com/coins/images/17803/large/IDIA.png?1696517325",
+    "liquid_staked_address": "",
+    "tags": ["volatilecoin"]
   }
 ]
 
