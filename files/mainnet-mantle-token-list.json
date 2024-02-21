@@ -118,6 +118,16 @@
     "logoURI": "https://assets.coingecko.com/coins/images/17803/large/IDIA.png?1696517325",
     "liquid_staked_address": "",
     "tags": ["volatilecoin"]
+  },
+  {
+    "chainId": 5000,
+    "name": "fBOMB",
+    "symbol": "fBOMB",
+    "address": "0x74ccbe53F77b08632ce0CB91D3A545bF6B8E0979",
+    "decimals": 18,
+    "logoURI": "https://avatars.githubusercontent.com/u/86392283?s=200&v=4",
+    "liquid_staked_address": "",
+    "tags": ["volatilecoin"]
   }
 ]
 
