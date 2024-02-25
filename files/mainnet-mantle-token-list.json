@@ -127,7 +127,8 @@
     "decimals": 18,
     "logoURI": "https://avatars.githubusercontent.com/u/86392283?s=200&v=4",
     "liquid_staked_address": "",
-    "tags": ["volatilecoin"]
+    "tags": ["volatilecoin"],
+    "taxToken": true
   }
 ]
 
