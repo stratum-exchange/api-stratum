@@ -437,6 +437,38 @@ const model = {
     }
   },
 
+  async circulatingSupply(req, res, next) {
+    const web3 = new Web3(
+        new Web3.providers.HttpProvider(config.web3.provider)
+    );
+
+    const tvlHelperContract = new web3.eth.Contract(
+        CONTRACTS.TVL_HELPER_ABI,
+        CONTRACTS.TVL_HELPER_ADDRESS
+    );
+
+    for (let i = 0; i < 3; i++) {
+        try {
+            let circulatingSupply = await tvlHelperContract.methods.getCirculatingSupply(true, false, true).call();
+            console.log(
+                "TVLHELPER:",
+                CONTRACTS.TVL_HELPER_ADDRESS,
+                circulatingSupply
+            );
+            res.status(205);
+            res.body = {status: 200, success: true, data: circulatingSupply};
+            break;
+        } catch (error) {          
+            console.error("Error fetching circulating supply: ", error);
+            console.log("Retrying ...");
+            res.status(500);
+            res.body = {status: 500, success: false, data: error};
+        }
+    }
+    
+    return next(null, req, res, next);
+  },
+  
   async updatePairs(req, res, next) {
     try {
       const RedisClient = await redisHelper.connect();

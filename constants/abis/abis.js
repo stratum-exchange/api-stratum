@@ -13,6 +13,7 @@ const wmtrABI = require("./wmtrABI");
 const wrappedBribeABI = require("./wrappedBribeABI");
 const pool3Router = require("./3poolRouter");
 const lpTokenABI = require("./lpToken");
+const tvlHelperABI = require("./tvlHelperABI");
 module.exports = {
   erc20ABI,
   veTokenABI,
@@ -29,4 +30,5 @@ module.exports = {
   wrappedBribeABI,
   pool3Router,
   lpTokenABI,
+  tvlHelperABI,
 };

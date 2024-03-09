@@ -24,6 +24,7 @@ const ADRS = {
   Minter: "0xD4096B163731E6e4178Eb24f4952bE246536d654",
   MerkleClaim: "0xc2cb4EC0f38214F1b4805E72D3fa4df8c30fe616",
   USDC: "0x09Bc4E0D864854c6aFB6eB9A9cdF58aC190D0dF9",
+  TVLHelper: "0x29BBDD2133921d2F31B8A710328311DC53476e42",
 };
 
 // ********************************
@@ -57,3 +58,6 @@ module.exports.WRAPPED_BRIBE_ABI = abis.wrappedBribeABI;
 module.exports.MULTICALL_ADDRESS = Multicall;
 
 module.exports.STABLE_TOKEN_ADDRESS = ADRS.USDC;
+
+module.exports.TVL_HELPER_ADDRESS = ADRS.TVLHelper;
+module.exports.TVL_HELPER_ABI = abis.tvlHelperABI;
