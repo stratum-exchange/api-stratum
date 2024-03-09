@@ -449,7 +449,9 @@ const model = {
 
     for (let i = 0; i < 3; i++) {
         try {
-            let circulatingSupply = await tvlHelperContract.methods.getCirculatingSupply(true, false, true).call();
+            let circulatingSupply = await tvlHelperContract.methods
+              .getCirculatingSupply(true, true, true)
+              .call();
             console.log(
                 "TVLHELPER:",
                 CONTRACTS.TVL_HELPER_ADDRESS,
