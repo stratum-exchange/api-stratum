@@ -458,7 +458,11 @@ const model = {
                 circulatingSupply
             );
             res.status(205);
-            res.body = {status: 200, success: true, data: circulatingSupply};
+            res.body = {
+                status: 200, 
+                success: true, 
+                result: BigNumber(circulatingSupply).div(10 ** 18).toFixed(18)
+            };
             break;
         } catch (error) {          
             console.error("Error fetching circulating supply: ", error);
