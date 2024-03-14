@@ -121,6 +121,16 @@
   },
   {
     "chainId": 5000,
+    "name": "PUFF",
+    "symbol": "PUFF",
+    "address": "0x26a6b0dcdCfb981362aFA56D581e4A7dBA3Be140",
+    "decimals": 18,
+    "logoURI": "https://dd.dexscreener.com/ds-data/tokens/mantle/0x26a6b0dcdcfb981362afa56d581e4a7dba3be140.png?key=a846a2",
+    "liquid_staked_address": "",
+    "tags": ["volatilecoin"]
+  },
+  {
+    "chainId": 5000,
     "name": "fBOMB",
     "symbol": "fBOMB",
     "address": "0x74ccbe53F77b08632ce0CB91D3A545bF6B8E0979",
