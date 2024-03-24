@@ -549,17 +549,23 @@ const model = {
             //   .getTokenBalance(2)
             //   .call();
             // console.log(tokenArr);
-            const [tokenArr, reserve0, reserve1, reserve2] =
-              await multicall.aggregate([
-                pool3Contract.methods.getTokensArray(),
-                pool3Contract.methods.getTokenBalance(0),
-                pool3Contract.methods.getTokenBalance(1),
-                pool3Contract.methods.getTokenBalance(2),
-              ]);
-            const token0 = await model._getBaseAsset(web3, tokenArr[0]);
-            const token1 = await model._getBaseAsset(web3, tokenArr[1]);
-            const token2 = await model._getBaseAsset(web3, tokenArr[2]);
-            console.log(token0, token1, token2, reserve0, reserve1, reserve2);
+            const [tokenArr, reserves] = await multicall.aggregate([
+              pool3Contract.methods.getTokensArray(),
+              pool3Contract.methods.getBalances(),
+            ]);
+
+            // const [tokenArr, reserve0, reserve1, reserve2] =
+            //   await multicall.aggregate([
+            //     pool3Contract.methods.getTokensArray(),
+            //     pool3Contract.methods.getTokenBalance(0),
+            //     pool3Contract.methods.getTokenBalance(1),
+            //     pool3Contract.methods.getTokenBalance(2),
+            //   ]);
+
+            // const token0 = await model._getBaseAsset(web3, tokenArr[0]);
+            // const token1 = await model._getBaseAsset(web3, tokenArr[1]);
+            // const token2 = await model._getBaseAsset(web3, tokenArr[2]);
+            // console.log(token0, token1, token2, reserve0, reserve1, reserve2);
             const swapStorage = await pool3Contract.methods
               .swapStorage()
               .call();
@@ -597,23 +603,29 @@ const model = {
               symbol: symbol,
               decimals: parseInt(decimals),
               stable: true,
-              token0: token0,
-              token1: token1,
-              token2: token2,
+              token0: await model._getBaseAsset(web3, tokenArr[0]),
+              token1: await model._getBaseAsset(web3, tokenArr[1]),
+              token2:
+                tokenArr.length === 3
+                  ? await model._getBaseAsset(web3, tokenArr[0])
+                  : null,
               lpToken: swapStorage.lpToken,
               is3pool: true,
               totalSupply: BigNumber(totalSupply)
                 .div(10 ** decimals)
                 .toFixed(parseInt(decimals)),
-              reserve0: BigNumber(reserve0)
+              reserve0: BigNumber(reserves[0])
                 .div(10 ** decimals)
                 .toFixed(parseInt(decimals)),
-              reserve1: BigNumber(reserve1)
+              reserve1: BigNumber(reserves[1])
                 .div(10 ** decimals)
                 .toFixed(parseInt(decimals)),
-              reserve2: BigNumber(reserve2)
-                .div(10 ** decimals)
-                .toFixed(parseInt(decimals)),
+              reserve2:
+                reserves.length === 3
+                  ? BigNumber(reserve2)
+                      .div(10 ** decimals)
+                      .toFixed(parseInt(decimals))
+                  : 0,
             };
           } else {
             // we expect pairs here
