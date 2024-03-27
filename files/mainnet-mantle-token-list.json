@@ -139,6 +139,16 @@
     "liquid_staked_address": "",
     "tags": ["volatilecoin"],
     "taxToken": true
+  },
+  {
+    "chainId": 5000,
+    "name": "Entangle",
+    "symbol": "NGL",
+    "address": "0x8A3ed1F2D15b5015396F494cc1Da977da38A6773",
+    "decimals": 18,
+    "logoURI": "https://entangle-1.gitbook.io/~gitbook/image?url=https:%2F%2F758965771-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252FW4hWFoOg1bsy9f1Z6FWM%252Fuploads%252F77ZdcZGtDBq88oWQvk30%252FPurple%2520Circle.png%3Falt=media%26token=edae82e3-9e6e-4e04-ada6-67a189e42673&width=40&dpr=4&quality=100&sign=d96dda267af410ad8f639562adb2011e8e903a943be8638d911701fa8f9e06db",
+    "liquid_staked_address": "",
+    "tags": ["volatilecoin"]
   }
 ]
 
