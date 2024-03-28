@@ -1,0 +1,153 @@
+[
+  {
+    "chainId": 5000,
+    "name": "USD Coin",
+    "symbol": "USDC",
+    "address": "0x09Bc4E0D864854c6aFB6eB9A9cdF58aC190D0dF9",
+    "decimals": 6,
+    "logoURI": "https://assets.coingecko.com/coins/images/6319/large/USD_Coin_icon.png",
+    "liquid_staked_address": "",
+    "tags": ["stablecoin"]
+  },
+  {
+    "chainId": 5000,
+    "name": "USD Tether",
+    "symbol": "USDT",
+    "address": "0x201EBa5CC46D216Ce6DC03F6a759e8E766e956aE",
+    "decimals": 6,
+    "logoURI": "https://assets.coingecko.com/coins/images/325/large/Tether.png?169650166",
+    "liquid_staked_address": "",
+    "tags": ["stablecoin"]
+  },
+  {
+    "chainId": 5000,
+    "name": "USDY",
+    "symbol": "USDY",
+    "address": "0x5bE26527e817998A7206475496fDE1E68957c5A6",
+    "decimals": 18,
+    "logoURI": "https://assets.coingecko.com/coins/images/31700/standard/usdy_%281%29.png?1696530524",
+    "liquid_staked_address": "",
+    "tags": ["stablecoin"]
+  },
+  {
+    "chainId": 5000,
+    "name": "LUSD",
+    "symbol": "LUSD",
+    "address": "0xf93a85d53e4aF0D62bdf3A83CCFc1EcF3EAf9F32",
+    "decimals": 18,
+    "logoURI": "https://assets.coingecko.com/coins/images/14666/large/Group_3.png?1696514341",
+    "liquid_staked_address": "",
+    "tags": ["stablecoin"]
+  },
+  {
+    "chainId": 5000,
+    "name": "Stratum",
+    "symbol": "STRAT",
+    "address": "0xf59fBE1d3eb48096d0Bd63c6B342595FEE2f1e34",
+    "decimals": 18,
+    "logoURI": "/tokens/coin_strat.png",
+    "liquid_staked_address": "",
+    "tags": ["volatilecoin"]
+  },
+  {
+    "chainId": 5000,
+    "name": "Wrapped Mantle",
+    "symbol": "WMNT",
+    "address": "0x78c1b0C915c4FAA5FffA6CAbf0219DA63d7f4cb8",
+    "decimals": 18,
+    "logoURI": "https://assets.coingecko.com/coins/images/30980/large/token-logo.png?1689320029",
+    "liquid_staked_address": "",
+    "tags": ["volatilecoin"]
+  },
+  {
+    "chainId": 5000,
+    "name": "Wrapped Ethereum",
+    "symbol": "WETH",
+    "address": "0xdEAddEaDdeadDEadDEADDEAddEADDEAddead1111",
+    "decimals": 18,
+    "logoURI": "https://assets.coingecko.com/coins/images/279/large/ethereum.png?169650162",
+    "liquid_staked_address": "",
+    "tags": ["volatilecoin"]
+  },
+  {
+    "chainId": 5000,
+    "name": "Lendle",
+    "symbol": "LEND",
+    "address": "0x25356aeca4210eF7553140edb9b8026089E49396",
+    "decimals": 18,
+    "logoURI": "https://assets.coingecko.com/coins/images/31588/large/lendle_logo_200_200_cg.png",
+    "liquid_staked_address": "",
+    "tags": ["volatilecoin"]
+  },
+  {
+    "chainId": 5000,
+    "name": "mETH",
+    "symbol": "mETH",
+    "address": "0xcda86a272531e8640cd7f1a92c01839911b90bb0",
+    "decimals": 18,
+    "logoURI": "https://assets.coingecko.com/coins/images/33345/large/symbol_transparent_bg.png?1701697066",
+    "liquid_staked_address": "",
+    "tags": ["volatilecoin"]
+  },
+  {
+    "chainId": 5000,
+    "name": "wstETH",
+    "symbol": "wstETH",
+    "address": "0x458ed78EB972a369799fb278c0243b25e5242A83",
+    "decimals": 18,
+    "logoURI": "https://assets.coingecko.com/coins/images/18834/large/wstETH.png?1696518295",
+    "liquid_staked_address": "",
+    "tags": ["volatilecoin"]
+  },
+  {
+    "chainId": 5000,
+    "name": "mUSD",
+    "symbol": "mUSD",
+    "address": "0xab575258d37EaA5C8956EfABe71F4eE8F6397cF3",
+    "decimals": 18,
+    "logoURI": "https://raw.githubusercontent.com/swapsicledex/swapsicle-token-list/master/logos/mantle/0xab575258d37EaA5C8956EfABe71F4eE8F6397cF3/logo.png",
+    "liquid_staked_address": "",
+    "tags": ["volatilecoin"]
+  },
+  {
+    "chainId": 5000,
+    "name": "IDIA",
+    "symbol": "IDIA",
+    "address": "0x08D1099101De99B14C68975222A235b63e6B8C91",
+    "decimals": 18,
+    "logoURI": "https://assets.coingecko.com/coins/images/17803/large/IDIA.png?1696517325",
+    "liquid_staked_address": "",
+    "tags": ["volatilecoin"]
+  },
+  {
+    "chainId": 5000,
+    "name": "PUFF",
+    "symbol": "PUFF",
+    "address": "0x26a6b0dcdCfb981362aFA56D581e4A7dBA3Be140",
+    "decimals": 18,
+    "logoURI": "https://dd.dexscreener.com/ds-data/tokens/mantle/0x26a6b0dcdcfb981362afa56d581e4a7dba3be140.png?key=a846a2",
+    "liquid_staked_address": "",
+    "tags": ["volatilecoin"]
+  },
+  {
+    "chainId": 5000,
+    "name": "fBOMB",
+    "symbol": "fBOMB",
+    "address": "0x74ccbe53F77b08632ce0CB91D3A545bF6B8E0979",
+    "decimals": 18,
+    "logoURI": "https://avatars.githubusercontent.com/u/86392283?s=200&v=4",
+    "liquid_staked_address": "",
+    "tags": ["volatilecoin"],
+    "taxToken": true
+  },
+  {
+    "chainId": 5000,
+    "name": "Entangle",
+    "symbol": "NGL",
+    "address": "0x8A3ed1F2D15b5015396F494cc1Da977da38A6773",
+    "decimals": 18,
+    "logoURI": "https://entangle-1.gitbook.io/~gitbook/image?url=https:%2F%2F758965771-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252FW4hWFoOg1bsy9f1Z6FWM%252Fuploads%252F77ZdcZGtDBq88oWQvk30%252FPurple%2520Circle.png%3Falt=media%26token=edae82e3-9e6e-4e04-ada6-67a189e42673&width=40&dpr=4&quality=100&sign=d96dda267af410ad8f639562adb2011e8e903a943be8638d911701fa8f9e06db",
+    "liquid_staked_address": "",
+    "tags": ["volatilecoin"]
+  }
+]
