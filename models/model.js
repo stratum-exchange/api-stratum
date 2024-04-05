@@ -582,10 +582,10 @@ const model = {
             //   .swapStorage()
             //   .call();
 
-            // const lpTokenContract = new web3.eth.Contract(
-            //   CONTRACTS.LP_TOKEN_ABI,
-            //   swapStorage.lpToken
-            // );
+            const lpTokenContract = new web3.eth.Contract(
+              CONTRACTS.LP_TOKEN_ABI,
+              lpToken
+            );
             // const symbol = await lpTokenContract.methods.symbol().call();
             // const decimals = await lpTokenContract.methods.decimals().call();
             // const totalSupply = await lpTokenContract.methods
