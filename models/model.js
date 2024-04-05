@@ -555,7 +555,7 @@ const model = {
             //   .call();
             // console.log(tokenArr);
             const poolInfo = await multipoolHelperContract.methods
-              ._multipool(parAddress)
+              ._multipool(pairAddress)
               .call();
             const tokenArray = poolInfo._token;
             const tokenReserves = poolInfo._reserves;
