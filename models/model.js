@@ -534,6 +534,11 @@ const model = {
               CONTRACTS.POOL3_ROUTER_ABI,
               pairAddress
             );
+
+            const multipoolHelperContract = new web3.eth.Contract(
+              CONTRACTS.MULTIPOOL_HELPER_ABI,
+              CONTRACTS.MULTIPOOL_HELPER_ADDRESS
+            );
             console.log("call 3pool function");
             // const tokenArr = await pool3Contract.methods
             //   .getTokensArray()
@@ -549,10 +554,17 @@ const model = {
             //   .getTokenBalance(2)
             //   .call();
             // console.log(tokenArr);
-            const [tokenArr, reserves] = await multicall.aggregate([
-              pool3Contract.methods.getTokensArray(),
-              pool3Contract.methods.getBalances(),
-            ]);
+            const poolInfo = await multipoolHelperContract.methods
+              ._multipool(parAddress)
+              .call();
+            const tokenArray = poolInfo._token;
+            const tokenReserves = poolInfo._reserves;
+            const lpToken = poolInfo._lpToken;
+
+            // const [tokenArr, reserves] = await multicall.aggregate([
+            //   pool3Contract.methods.getTokensArray(),
+            //   pool3Contract.methods.getBalances(),
+            // ]);
 
             // const [tokenArr, reserve0, reserve1, reserve2] =
             //   await multicall.aggregate([
@@ -566,14 +578,14 @@ const model = {
             // const token1 = await model._getBaseAsset(web3, tokenArr[1]);
             // const token2 = await model._getBaseAsset(web3, tokenArr[2]);
             // console.log(token0, token1, token2, reserve0, reserve1, reserve2);
-            const swapStorage = await pool3Contract.methods
-              .swapStorage()
-              .call();
+            // const swapStorage = await pool3Contract.methods
+            //   .swapStorage()
+            //   .call();
 
-            const lpTokenContract = new web3.eth.Contract(
-              CONTRACTS.LP_TOKEN_ABI,
-              swapStorage.lpToken
-            );
+            // const lpTokenContract = new web3.eth.Contract(
+            //   CONTRACTS.LP_TOKEN_ABI,
+            //   swapStorage.lpToken
+            // );
             // const symbol = await lpTokenContract.methods.symbol().call();
             // const decimals = await lpTokenContract.methods.decimals().call();
             // const totalSupply = await lpTokenContract.methods
@@ -584,8 +596,8 @@ const model = {
                 lpTokenContract.methods.decimals(),
                 lpTokenContract.methods.symbol(),
                 lpTokenContract.methods.totalSupply(),
-                gaugesContract.methods.gauges(swapStorage.lpToken), // is swapStorage.lpToken, but ZERO Adress is good for testing
-                gaugesContract.methods.weights(swapStorage.lpToken),
+                gaugesContract.methods.gauges(lpToken), // is swapStorage.lpToken, but ZERO Adress is good for testing
+                gaugesContract.methods.weights(lpToken),
               ]);
             console.log(
               symbol,
@@ -609,7 +621,7 @@ const model = {
                 tokenArr.length === 3
                   ? await model._getBaseAsset(web3, tokenArr[0])
                   : null,
-              lpToken: swapStorage.lpToken,
+              lpToken: lpToken,
               is3pool: true,
               totalSupply: BigNumber(totalSupply)
                 .div(10 ** decimals)

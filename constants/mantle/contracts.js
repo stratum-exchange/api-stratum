@@ -45,6 +45,7 @@ const ADRS = {
   MerkleClaim: "0x262BCD16A2c20dF9c0D1c8928067BFE162274D21",
   USDC: "0x09Bc4E0D864854c6aFB6eB9A9cdF58aC190D0dF9",
   TVLHelper: "0x29BBDD2133921d2F31B8A710328311DC53476e42",
+  MultipoolHelper: "0xfa822cA2D34ed916e4bC08C1cED8c5069128b498",
 };
 
 // ********************************
@@ -81,3 +82,6 @@ module.exports.STABLE_TOKEN_ADDRESS = ADRS.USDC;
 
 module.exports.TVL_HELPER_ADDRESS = ADRS.TVLHelper;
 module.exports.TVL_HELPER_ABI = abis.tvlHelperABI;
+
+module.exports.MULTIPOOL_HELPER_ADDRESS = ADRS.MultipoolHelper;
+module.exports.MULTIPOOL_HELPER_ABI = abis.multipoolHelperABI;

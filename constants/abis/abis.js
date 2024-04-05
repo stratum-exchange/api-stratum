@@ -14,6 +14,7 @@ const wrappedBribeABI = require("./wrappedBribeABI");
 const pool3Router = require("./3poolRouter");
 const lpTokenABI = require("./lpToken");
 const tvlHelperABI = require("./tvlHelperABI");
+const multipoolHelperABI = require("./multipoolHelper");
 module.exports = {
   erc20ABI,
   veTokenABI,
@@ -31,4 +32,5 @@ module.exports = {
   pool3Router,
   lpTokenABI,
   tvlHelperABI,
+  multipoolHelperABI,
 };
