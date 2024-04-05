@@ -555,10 +555,10 @@ const model = {
             //   .call();
             // console.log(tokenArr);
             const poolInfo = await multipoolHelperContract.methods
-              ._multipool(pairAddress)
+              .getPoolInfo(pairAddress)
               .call();
-            const tokenArray = poolInfo._token;
-            const tokenReserves = poolInfo._reserves;
+            const tokenArr = poolInfo._token;
+            const reserves = poolInfo._reserves;
             const lpToken = poolInfo._lpToken;
 
             // const [tokenArr, reserves] = await multicall.aggregate([
@@ -619,7 +619,7 @@ const model = {
               token1: await model._getBaseAsset(web3, tokenArr[1]),
               token2:
                 tokenArr.length === 3
-                  ? await model._getBaseAsset(web3, tokenArr[0])
+                  ? await model._getBaseAsset(web3, tokenArr[2])
                   : null,
               lpToken: lpToken,
               is3pool: true,
@@ -634,7 +634,7 @@ const model = {
                 .toFixed(parseInt(decimals)),
               reserve2:
                 reserves.length === 3
-                  ? BigNumber(reserve2)
+                  ? BigNumber(reserves[2])
                       .div(10 ** decimals)
                       .toFixed(parseInt(decimals))
                   : 0,
