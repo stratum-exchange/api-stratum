@@ -509,363 +509,399 @@ const model = {
         gaugesContract.methods.totalWeight().call(),
       ]);
 
-      const arr = Array.from({ length: parseInt(allPairsLength) }, (v, i) => i);
+      const arr1 = Array.from(
+        { length: parseInt(allPairsLength) },
+        (v, i) => i
+      );
+      const batchSize = 5;
+      const delayTime = 2000;
+      const ps = [];
 
-      const ps = await Promise.all(
-        arr.map(async (idx) => {
+      function delay(ms) {
+        return new Promise((resolve) => setTimeout(resolve, ms));
+      }
 
-          const pairAddress = await factoryContract.methods
-            .allPairs(idx)
-            .call();
+      for (let i = 0; i < arr1.length; i += batchSize) {
+        const batch = arr1.slice(i, i + batchSize); // Get the current batch
+        console.log(`Processing batch: ${batch}`);
 
-          let thePair = null;
-          let gaugeAddress = null;
-          let gaugeWeight = null;
-          let is3Pool = false;
-          try {
-            is3Pool = await factoryContract.methods.is3pool(pairAddress).call();
-            console.log("pairAddress:", pairAddress, is3Pool);
-          } catch (error) {
-            is3pool = false;
-          }
-          if (is3Pool) {
-            // if 3pool handle pool information
-            const pool3Contract = new web3.eth.Contract(
-              CONTRACTS.POOL3_ROUTER_ABI,
-              pairAddress
-            );
-
-            const multipoolHelperContract = new web3.eth.Contract(
-              CONTRACTS.MULTIPOOL_HELPER_ABI,
-              CONTRACTS.MULTIPOOL_HELPER_ADDRESS
-            );
-            console.log("call 3pool function");
-            // const tokenArr = await pool3Contract.methods
-            //   .getTokensArray()
-            //   .call();
-
-            // const reserve0 = await pool3Contract.methods
-            //   .getTokenBalance(0)
-            //   .call();
-            // const reserve1 = await pool3Contract.methods
-            //   .getTokenBalance(1)
-            //   .call();
-            // const reserve2 = await pool3Contract.methods
-            //   .getTokenBalance(2)
-            //   .call();
-            // console.log(tokenArr);
-            const poolInfo = await multipoolHelperContract.methods
-              .getPoolInfo(pairAddress)
+        const psBatch = await Promise.all(
+          batch.map(async (idx) => {
+            const pairAddress = await factoryContract.methods
+              .allPairs(idx)
               .call();
-            const tokenArr = poolInfo._token;
-            const reserves = poolInfo._reserves;
-            const lpToken = poolInfo._lpToken;
 
-            // const [tokenArr, reserves] = await multicall.aggregate([
-            //   pool3Contract.methods.getTokensArray(),
-            //   pool3Contract.methods.getBalances(),
-            // ]);
+            let thePair = null;
+            let gaugeAddress = null;
+            let gaugeWeight = null;
+            let is3Pool = false;
+            try {
+              is3Pool = await factoryContract.methods
+                .is3pool(pairAddress)
+                .call();
+              console.log("pairAddress:", pairAddress, is3Pool);
+            } catch (error) {
+              is3pool = false;
+            }
+            if (is3Pool) {
+              // if 3pool handle pool information
+              const pool3Contract = new web3.eth.Contract(
+                CONTRACTS.POOL3_ROUTER_ABI,
+                pairAddress
+              );
 
-            // const [tokenArr, reserve0, reserve1, reserve2] =
-            //   await multicall.aggregate([
-            //     pool3Contract.methods.getTokensArray(),
-            //     pool3Contract.methods.getTokenBalance(0),
-            //     pool3Contract.methods.getTokenBalance(1),
-            //     pool3Contract.methods.getTokenBalance(2),
-            //   ]);
+              const multipoolHelperContract = new web3.eth.Contract(
+                CONTRACTS.MULTIPOOL_HELPER_ABI,
+                CONTRACTS.MULTIPOOL_HELPER_ADDRESS
+              );
+              console.log("call 3pool function");
+              // const tokenArr = await pool3Contract.methods
+              //   .getTokensArray()
+              //   .call();
 
-            // const token0 = await model._getBaseAsset(web3, tokenArr[0]);
-            // const token1 = await model._getBaseAsset(web3, tokenArr[1]);
-            // const token2 = await model._getBaseAsset(web3, tokenArr[2]);
-            // console.log(token0, token1, token2, reserve0, reserve1, reserve2);
-            // const swapStorage = await pool3Contract.methods
-            //   .swapStorage()
-            //   .call();
+              // const reserve0 = await pool3Contract.methods
+              //   .getTokenBalance(0)
+              //   .call();
+              // const reserve1 = await pool3Contract.methods
+              //   .getTokenBalance(1)
+              //   .call();
+              // const reserve2 = await pool3Contract.methods
+              //   .getTokenBalance(2)
+              //   .call();
+              // console.log(tokenArr);
+              const poolInfo = await multipoolHelperContract.methods
+                .getPoolInfo(pairAddress)
+                .call();
+              const tokenArr = poolInfo._token;
+              const reserves = poolInfo._reserves;
+              const lpToken = poolInfo._lpToken;
 
-            const lpTokenContract = new web3.eth.Contract(
-              CONTRACTS.LP_TOKEN_ABI,
-              lpToken
-            );
-            // const symbol = await lpTokenContract.methods.symbol().call();
-            // const decimals = await lpTokenContract.methods.decimals().call();
-            // const totalSupply = await lpTokenContract.methods
-            //   .totalSupply()
-            //   .call();
-            const [decimals, symbol, totalSupply, _gaugeAddress, _gaugeWeight] =
-              await multicall.aggregate([
+              // const [tokenArr, reserves] = await multicall.aggregate([
+              //   pool3Contract.methods.getTokensArray(),
+              //   pool3Contract.methods.getBalances(),
+              // ]);
+
+              // const [tokenArr, reserve0, reserve1, reserve2] =
+              //   await multicall.aggregate([
+              //     pool3Contract.methods.getTokensArray(),
+              //     pool3Contract.methods.getTokenBalance(0),
+              //     pool3Contract.methods.getTokenBalance(1),
+              //     pool3Contract.methods.getTokenBalance(2),
+              //   ]);
+
+              // const token0 = await model._getBaseAsset(web3, tokenArr[0]);
+              // const token1 = await model._getBaseAsset(web3, tokenArr[1]);
+              // const token2 = await model._getBaseAsset(web3, tokenArr[2]);
+              // console.log(token0, token1, token2, reserve0, reserve1, reserve2);
+              // const swapStorage = await pool3Contract.methods
+              //   .swapStorage()
+              //   .call();
+
+              const lpTokenContract = new web3.eth.Contract(
+                CONTRACTS.LP_TOKEN_ABI,
+                lpToken
+              );
+              // const symbol = await lpTokenContract.methods.symbol().call();
+              // const decimals = await lpTokenContract.methods.decimals().call();
+              // const totalSupply = await lpTokenContract.methods
+              //   .totalSupply()
+              //   .call();
+              const [
+                decimals,
+                symbol,
+                totalSupply,
+                _gaugeAddress,
+                _gaugeWeight,
+              ] = await multicall.aggregate([
                 lpTokenContract.methods.decimals(),
                 lpTokenContract.methods.symbol(),
                 lpTokenContract.methods.totalSupply(),
                 gaugesContract.methods.gauges(lpToken), // is swapStorage.lpToken, but ZERO Adress is good for testing
                 gaugesContract.methods.weights(lpToken),
               ]);
-            console.log(
-              symbol,
-              decimals,
-              totalSupply,
-              _gaugeAddress,
-              _gaugeWeight
-            );
-
-            gaugeAddress = _gaugeAddress;
-            gaugeWeight = _gaugeWeight;
-
-            thePair = {
-              address: pairAddress,
-              symbol: symbol,
-              decimals: parseInt(decimals),
-              stable: true,
-              token0: await model._getBaseAsset(web3, tokenArr[0]),
-              token1: await model._getBaseAsset(web3, tokenArr[1]),
-              token2:
-                tokenArr.length === 3
-                  ? await model._getBaseAsset(web3, tokenArr[2])
-                  : null,
-              lpToken: lpToken,
-              is3pool: true,
-              totalSupply: BigNumber(totalSupply)
-                .div(10 ** decimals)
-                .toFixed(parseInt(decimals)),
-              reserve0: BigNumber(reserves[0])
-                .div(10 ** decimals)
-                .toFixed(parseInt(decimals)),
-              reserve1: BigNumber(reserves[1])
-                .div(10 ** decimals)
-                .toFixed(parseInt(decimals)),
-              reserve2:
-                reserves.length === 3
-                  ? BigNumber(reserves[2])
-                      .div(10 ** decimals)
-                      .toFixed(parseInt(decimals))
-                  : 0,
-            };
-          } else {
-            // we expect pairs here
-            const pairContract = new web3.eth.Contract(
-              CONTRACTS.PAIR_ABI,
-              pairAddress
-            );
-
-            const [
-              reserves,
-              token0Address,
-              token1Address,
-              totalSupply,
-              symbol,
-              decimals,
-              stable,
-              _gaugeAddress,
-              _gaugeWeight,
-            ] = await multicall.aggregate([
-              pairContract.methods.getReserves(),
-              pairContract.methods.token0(),
-              pairContract.methods.token1(),
-              pairContract.methods.totalSupply(),
-              pairContract.methods.symbol(),
-              pairContract.methods.decimals(),
-              pairContract.methods.stable(),
-              gaugesContract.methods.gauges(pairAddress),
-              gaugesContract.methods.weights(pairAddress),
-            ]);
-
-            const token0 = await model._getBaseAsset(web3, token0Address);
-            const token1 = await model._getBaseAsset(web3, token1Address);
-            gaugeAddress = _gaugeAddress;
-            gaugeWeight = _gaugeWeight;
-
-            thePair = {
-              address: pairAddress,
-              symbol: symbol,
-              decimals: parseInt(decimals),
-              stable: stable,
-              token0: token0,
-              token1: token1,
-              is3pool: false,
-              totalSupply: BigNumber(totalSupply)
-                .div(10 ** decimals)
-                .toFixed(parseInt(decimals)),
-              reserve0: BigNumber(reserves[0])
-                .div(10 ** decimals)
-                .toFixed(parseInt(decimals)),
-              reserve1: BigNumber(reserves[1])
-                .div(10 ** decimals)
-                .toFixed(parseInt(decimals)),
-            };
-          }
-
-          console.log(gaugeAddress, ZERO_ADDRESS);
-
-          if (gaugeAddress !== ZERO_ADDRESS) {
-            const gaugeContract = new web3.eth.Contract(
-              CONTRACTS.GAUGE_ABI,
-              gaugeAddress
-            );
-            // console.log("Gauge address:", gaugeAddress);
-            const [
-              gaugeTotalSupply,
-              internalBribeAddress,
-              externalBribeAddress,
-            ] = await multicall.aggregate([
-              gaugeContract.methods.totalSupply(),
-              gaugesContract.methods.internal_bribes(gaugeAddress),
-              gaugesContract.methods.external_bribes(gaugeAddress),
-            ]);
-
-            //External wrapped bribe code that needs to be executed to fetch the external bribe values
-            let wrappedBribeAddress = null;
-            if (![ZERO_ADDRESS, null].includes(externalBribeAddress)) {
-              const wrappedBribeFactoryContract = new web3.eth.Contract(
-                CONTRACTS.WRAPPED_BRIBE_ABI,
-                CONTRACTS.WRAPPED_BRIBE_FACTORY_ADDRESS
+              console.log(
+                symbol,
+                decimals,
+                totalSupply,
+                _gaugeAddress,
+                _gaugeWeight
               );
 
-              wrappedBribeAddress = await wrappedBribeFactoryContract.methods
-                .oldBribeToNew(externalBribeAddress)
-                .call();
-              console.log("WBA:", gaugeAddress, wrappedBribeAddress);
-              if ([ZERO_ADDRESS, ""].includes(wrappedBribeAddress)) {
-                throw Error(
-                  "Internal error: wxBribe should always be initialized!"
+              gaugeAddress = _gaugeAddress;
+              gaugeWeight = _gaugeWeight;
+
+              thePair = {
+                address: pairAddress,
+                symbol: symbol,
+                decimals: parseInt(decimals),
+                stable: true,
+                token0: await model._getBaseAsset(web3, tokenArr[0]),
+                token1: await model._getBaseAsset(web3, tokenArr[1]),
+                token2:
+                  tokenArr.length === 3
+                    ? await model._getBaseAsset(web3, tokenArr[2])
+                    : null,
+                lpToken: lpToken,
+                is3pool: true,
+                totalSupply: BigNumber(totalSupply)
+                  .div(10 ** decimals)
+                  .toFixed(parseInt(decimals)),
+                reserve0: BigNumber(reserves[0])
+                  .div(10 ** decimals)
+                  .toFixed(parseInt(decimals)),
+                reserve1: BigNumber(reserves[1])
+                  .div(10 ** decimals)
+                  .toFixed(parseInt(decimals)),
+                reserve2:
+                  reserves.length === 3
+                    ? BigNumber(reserves[2])
+                        .div(10 ** decimals)
+                        .toFixed(parseInt(decimals))
+                    : 0,
+              };
+            } else {
+              // we expect pairs here
+              const pairContract = new web3.eth.Contract(
+                CONTRACTS.PAIR_ABI,
+                pairAddress
+              );
+
+              const [
+                reserves,
+                token0Address,
+                token1Address,
+                totalSupply,
+                symbol,
+                decimals,
+                stable,
+                _gaugeAddress,
+                _gaugeWeight,
+              ] = await multicall.aggregate([
+                pairContract.methods.getReserves(),
+                pairContract.methods.token0(),
+                pairContract.methods.token1(),
+                pairContract.methods.totalSupply(),
+                pairContract.methods.symbol(),
+                pairContract.methods.decimals(),
+                pairContract.methods.stable(),
+                gaugesContract.methods.gauges(pairAddress),
+                gaugesContract.methods.weights(pairAddress),
+              ]);
+
+              const token0 = await model._getBaseAsset(web3, token0Address);
+              const token1 = await model._getBaseAsset(web3, token1Address);
+              gaugeAddress = _gaugeAddress;
+              gaugeWeight = _gaugeWeight;
+
+              thePair = {
+                address: pairAddress,
+                symbol: symbol,
+                decimals: parseInt(decimals),
+                stable: stable,
+                token0: token0,
+                token1: token1,
+                is3pool: false,
+                totalSupply: BigNumber(totalSupply)
+                  .div(10 ** decimals)
+                  .toFixed(parseInt(decimals)),
+                reserve0: BigNumber(reserves[0])
+                  .div(10 ** decimals)
+                  .toFixed(parseInt(decimals)),
+                reserve1: BigNumber(reserves[1])
+                  .div(10 ** decimals)
+                  .toFixed(parseInt(decimals)),
+              };
+            }
+
+            console.log(gaugeAddress, ZERO_ADDRESS);
+
+            if (gaugeAddress !== ZERO_ADDRESS) {
+              const gaugeContract = new web3.eth.Contract(
+                CONTRACTS.GAUGE_ABI,
+                gaugeAddress
+              );
+              // console.log("Gauge address:", gaugeAddress);
+              const [
+                gaugeTotalSupply,
+                internalBribeAddress,
+                externalBribeAddress,
+              ] = await multicall.aggregate([
+                gaugeContract.methods.totalSupply(),
+                gaugesContract.methods.internal_bribes(gaugeAddress),
+                gaugesContract.methods.external_bribes(gaugeAddress),
+              ]);
+
+              //External wrapped bribe code that needs to be executed to fetch the external bribe values
+              let wrappedBribeAddress = null;
+              if (![ZERO_ADDRESS, null].includes(externalBribeAddress)) {
+                const wrappedBribeFactoryContract = new web3.eth.Contract(
+                  CONTRACTS.WRAPPED_BRIBE_ABI,
+                  CONTRACTS.WRAPPED_BRIBE_FACTORY_ADDRESS
                 );
-                // await model.createWrappedBribe(
-                //   externalBribeAddress,
-                //   no_wrapped_bribe_Counter
-                // );
-                // wrappedBribeAddress = await wrappedBribeFactoryContract.methods
-                //   .oldBribeToNew(externalBribeAddress)
-                //   .call();
+
+                wrappedBribeAddress = await wrappedBribeFactoryContract.methods
+                  .oldBribeToNew(externalBribeAddress)
+                  .call();
+                console.log("WBA:", gaugeAddress, wrappedBribeAddress);
+                if ([ZERO_ADDRESS, ""].includes(wrappedBribeAddress)) {
+                  throw Error(
+                    "Internal error: wxBribe should always be initialized!"
+                  );
+                  // await model.createWrappedBribe(
+                  //   externalBribeAddress,
+                  //   no_wrapped_bribe_Counter
+                  // );
+                  // wrappedBribeAddress = await wrappedBribeFactoryContract.methods
+                  //   .oldBribeToNew(externalBribeAddress)
+                  //   .call();
+                }
+
+                //add when gauge is created! see below
+                // data["wrapped_bribe_address"] = wrappedBribeAddress;
               }
 
-              //add when gauge is created! see below
-              // data["wrapped_bribe_address"] = wrappedBribeAddress;
+              // const internalBribeContract = new web3.eth.Contract(
+              //   CONTRACTS.BRIBE_ABI,
+              //   internalBribeAddress
+              // );
+              // const externalBribeContract = new web3.eth.Contract(
+              //   CONTRACTS.BRIBE_ABI,
+              //   externalBribeAddress
+              // );
+
+              // const [internalBribeTokensLength, externalBribeTokensLength] =
+              //   await multicall.aggregate([
+              //     internalBribeContract.methods.rewardsListLength(),
+              //     externalBribeContract.methods.rewardsListLength(),
+              //   ]);
+
+              // const getBribes = async (bribeContract, gaugeContract, arry) => {
+              //   //FIXME: manage externalBribes as well!
+              //   let bribes = await Promise.all(
+              //     arry.map(async (idx) => {
+              //       const tokenAddress = await bribeContract.methods
+              //         .rewards(idx)
+              //         .call();
+              //       // console.log("Bribe token address:", tokenAddress);
+              //       const token = await model._getBaseAsset(web3, tokenAddress);
+              //       //FIXME: rewardRate has to be found <- looks like this is the rewards per second
+              //       let rewardRate;
+              //       try {
+              //         rewardRate = await bribeContract.methods
+              //           .left(tokenAddress)
+              //           .call();
+
+              //         // console.log(
+              //         //   `Bribe: ${tokenAddress} for ${rewardRate} Token`
+              //         // );
+              //         //FIXME: This might be right for fees (internal bribes)
+              //         // rewardRate = await gaugeContract.methods
+              //         //   .rewardRate(tokenAddress)
+              //         //   .call();
+              //       } catch (error) {
+              //         console.log(
+              //           `this address ${tokenAddress} produced this error: ${error}`
+              //         );
+              //       }
+
+              //       //FIXME: if rewardRate is gathered uncomment this again and delete constant values.
+
+              //       return {
+              //         token: token,
+              //         rewardRate: BigNumber(rewardRate)
+              //           .div(10 ** token.decimals)
+              //           .toFixed(token.decimals),
+              //         rewardAmount: BigNumber(rewardRate)
+              //           .div(10 ** token.decimals)
+              //           .toFixed(token.decimals),
+              //       };
+              //     })
+              //   );
+              //   return bribes;
+              // };
+
+              // const arry1 = Array.from(
+              //   { length: parseInt(externalBribeTokensLength) },
+              //   (v, i) => i
+              // );
+
+              // let externalBribes = await getBribes(
+              //   externalBribeContract,
+              //   gaugeContract,
+              //   arry1
+              // );
+
+              // externalBribes = externalBribes.filter((bribe) => {
+              //   return bribe.token.isWhitelisted;
+              // });
+
+              thePair.gauge = {
+                address: gaugeAddress,
+                bribeAddress: externalBribeAddress,
+                internalBribeAddress: internalBribeAddress,
+                wrapped_bribe_address: wrappedBribeAddress,
+                decimals: 18,
+                totalSupply: BigNumber(gaugeTotalSupply)
+                  .div(10 ** 18)
+                  .toFixed(18),
+                reserve0:
+                  thePair.totalSupply > 0
+                    ? BigNumber(thePair.reserve0)
+                        .times(gaugeTotalSupply)
+                        .div(thePair.totalSupply)
+                        .toFixed(thePair.token0.decimals)
+                    : "0",
+                reserve1:
+                  thePair.totalSupply > 0
+                    ? BigNumber(thePair.reserve1)
+                        .times(gaugeTotalSupply)
+                        .div(thePair.totalSupply)
+                        .toFixed(thePair.token1.decimals)
+                    : "0",
+                reserve2:
+                  thePair.totalSupply > 0 && thePair.token2
+                    ? BigNumber(thePair.reserve2)
+                        .times(gaugeTotalSupply)
+                        .div(thePair.totalSupply)
+                        .toFixed(thePair.token2.decimals)
+                    : "0",
+                weight: BigNumber(gaugeWeight)
+                  .div(10 ** 18)
+                  .toFixed(18),
+                weightPercent: BigNumber(totalWeight).gt(0)
+                  ? BigNumber(gaugeWeight)
+                      .times(100)
+                      .div(totalWeight)
+                      .toFixed(2)
+                  : 0,
+                // bribes: externalBribes,
+                // internalBribes: bribes,
+              };
+
+              if (![ZERO_ADDRESS, null].includes(wrappedBribeAddress)) {
+                await model.fetchExternalRewards(
+                  web3,
+                  multicall,
+                  thePair.gauge
+                );
+                // console.log(thePair.gauge);
+              }
+              await model.fetchInternalRewards(web3, multicall, thePair);
+              // model.updateApr(gauge)
             }
-
-            // const internalBribeContract = new web3.eth.Contract(
-            //   CONTRACTS.BRIBE_ABI,
-            //   internalBribeAddress
-            // );
-            // const externalBribeContract = new web3.eth.Contract(
-            //   CONTRACTS.BRIBE_ABI,
-            //   externalBribeAddress
-            // );
-
-            // const [internalBribeTokensLength, externalBribeTokensLength] =
-            //   await multicall.aggregate([
-            //     internalBribeContract.methods.rewardsListLength(),
-            //     externalBribeContract.methods.rewardsListLength(),
-            //   ]);
-
-            // const getBribes = async (bribeContract, gaugeContract, arry) => {
-            //   //FIXME: manage externalBribes as well!
-            //   let bribes = await Promise.all(
-            //     arry.map(async (idx) => {
-            //       const tokenAddress = await bribeContract.methods
-            //         .rewards(idx)
-            //         .call();
-            //       // console.log("Bribe token address:", tokenAddress);
-            //       const token = await model._getBaseAsset(web3, tokenAddress);
-            //       //FIXME: rewardRate has to be found <- looks like this is the rewards per second
-            //       let rewardRate;
-            //       try {
-            //         rewardRate = await bribeContract.methods
-            //           .left(tokenAddress)
-            //           .call();
-
-            //         // console.log(
-            //         //   `Bribe: ${tokenAddress} for ${rewardRate} Token`
-            //         // );
-            //         //FIXME: This might be right for fees (internal bribes)
-            //         // rewardRate = await gaugeContract.methods
-            //         //   .rewardRate(tokenAddress)
-            //         //   .call();
-            //       } catch (error) {
-            //         console.log(
-            //           `this address ${tokenAddress} produced this error: ${error}`
-            //         );
-            //       }
-
-            //       //FIXME: if rewardRate is gathered uncomment this again and delete constant values.
-
-            //       return {
-            //         token: token,
-            //         rewardRate: BigNumber(rewardRate)
-            //           .div(10 ** token.decimals)
-            //           .toFixed(token.decimals),
-            //         rewardAmount: BigNumber(rewardRate)
-            //           .div(10 ** token.decimals)
-            //           .toFixed(token.decimals),
-            //       };
-            //     })
-            //   );
-            //   return bribes;
-            // };
-
-            // const arry1 = Array.from(
-            //   { length: parseInt(externalBribeTokensLength) },
-            //   (v, i) => i
-            // );
-
-            // let externalBribes = await getBribes(
-            //   externalBribeContract,
-            //   gaugeContract,
-            //   arry1
-            // );
-
-            // externalBribes = externalBribes.filter((bribe) => {
-            //   return bribe.token.isWhitelisted;
-            // });
-
-            thePair.gauge = {
-              address: gaugeAddress,
-              bribeAddress: externalBribeAddress,
-              internalBribeAddress: internalBribeAddress,
-              wrapped_bribe_address: wrappedBribeAddress,
-              decimals: 18,
-              totalSupply: BigNumber(gaugeTotalSupply)
-                .div(10 ** 18)
-                .toFixed(18),
-              reserve0:
-                thePair.totalSupply > 0
-                  ? BigNumber(thePair.reserve0)
-                    .times(gaugeTotalSupply)
-                    .div(thePair.totalSupply)
-                    .toFixed(thePair.token0.decimals)
-                  : "0",
-              reserve1:
-                thePair.totalSupply > 0
-                  ? BigNumber(thePair.reserve1)
-                    .times(gaugeTotalSupply)
-                    .div(thePair.totalSupply)
-                    .toFixed(thePair.token1.decimals)
-                  : "0",
-              reserve2:
-                thePair.totalSupply > 0 && thePair.token2
-                  ? BigNumber(thePair.reserve2)
-                    .times(gaugeTotalSupply)
-                    .div(thePair.totalSupply)
-                    .toFixed(thePair.token2.decimals)
-                  : "0",
-              weight: BigNumber(gaugeWeight)
-                .div(10 ** 18)
-                .toFixed(18),
-              weightPercent: BigNumber(totalWeight).gt(0)
-                ? BigNumber(gaugeWeight).times(100).div(totalWeight).toFixed(2)
-                : 0,
-              // bribes: externalBribes,
-              // internalBribes: bribes,
-            };
-
-            if (![ZERO_ADDRESS, null].includes(wrappedBribeAddress)) {
-              await model.fetchExternalRewards(web3, multicall, thePair.gauge);
-              // console.log(thePair.gauge);
-            }
-            await model.fetchInternalRewards(web3, multicall, thePair);
-            // model.updateApr(gauge)
-          }
-          // console.log("---__>", thePair);
-          return thePair;
-        })
-      );
+            // console.log("---__>", thePair);
+            return thePair;
+          })
+        );
+        ps.push(...psBatch);
+        // Wait before processing the next batch
+        if (i + batchSize < arr1.length) {
+          console.log(
+            `Waiting for ${delayTime}ms before processing the next batch`
+          );
+          await delay(delayTime);
+        }
+      }
       no_wrapped_bribe_Counter = 0;
       const done = await RedisClient.set("pairs", JSON.stringify(ps));
       // console.log(JSON.stringify(ps));
